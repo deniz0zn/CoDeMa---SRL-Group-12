@@ -1,0 +1,16 @@
+seed: 0
+device: cpu
+steps: 1000
+batch_size: 64
+num_workers: 0
+
+optimizer:
+  learning_rate: 0.0001
+  weight_decay: 0.0001
+  lr_warmup_steps: 500
+  clip_grad: 0.25
+
+evaluation:
+  episodes: 20
+  target_return: 575.0
+  target_cost: 10.0

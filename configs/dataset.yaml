@@ -1,0 +1,10 @@
+task: OfflineCarRun-v0
+
+scales:
+  reward_scale: 0.1
+  cost_scale: 1.0
+
+sequence:
+  seq_len: 10
+  augment_percent: 0.0
+  cost_sample: false

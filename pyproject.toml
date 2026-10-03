@@ -1,0 +1,40 @@
+[project]
+name = "codema-srl"
+version = "0.1.0"
+description = "OSRL CDT baseline on DSRL CarRun"
+requires-python = "==3.10.*"
+
+dependencies = [
+    "osrl-lib==0.1.0",
+    "dsrl==0.1.0",
+    "fast-safe-rl==0.1.0",
+    "bullet-safety-gym==1.4.0",
+    "gymnasium==0.28.1",
+    "torch==1.13.1",
+    "numpy==1.23.5",
+    "scipy==1.10.1",
+    "numba==0.57.1",
+    "tianshou==0.5.1",
+    "OApackage==2.7.6",
+    "matplotlib==3.7.5",
+    "tensorboard==2.11.2",
+    "protobuf==3.19.6",
+    "setuptools==65.5.1",
+    "pyyaml==6.0.3",
+]
+
+[tool.uv]
+package = false
+environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'",]
+
+[tool.uv.sources]
+osrl-lib = { git = "https://github.com/liuzuxin/OSRL.git", rev = "03a4586463690566ec8d7830ca4027b46d4ad02f" }
+dsrl = { git = "https://github.com/liuzuxin/DSRL.git", rev = "71064f21976f59c8f7139d00f1294963a1558369" }
+
+[tool.uv.extra-build-dependencies]
+oapackage = [
+    "numpy==1.23.5",
+    "swig==4.1.1",
+    "setuptools==65.5.1",
+]
+
