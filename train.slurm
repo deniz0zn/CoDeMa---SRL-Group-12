@@ -1,17 +1,30 @@
 #!/bin/bash
 #SBATCH --job-name=codema
-#SBATCH --partition=gpu_a100
+#SBATCH --partition=gpu_mig
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=18
+#SBATCH --cpus-per-task=9
 #SBATCH --gpus=1
-#SBATCH --time=01:00:00
+#SBATCH --time=00:30:00
 #SBATCH --output=logs/%x-%A_%a.out
+#SBATCH --mail-user=d.ozen@student.tue.nl
+#SBATCH --mail-type=BEGIN,END
 
 
 set -euo pipefail
 
-: "${WANDB_API_KEY:?Export WANDB_API_KEY on the login node before submitting}"
+KEY_FILE="$HOME/.config/wandb/api-key"
+
+if [[ ! -r "$KEY_FILE" ]]; then
+    echo "Missing W&B API key file: $KEY_FILE" >&2
+    exit 1
+fi
+
+IFS= read -r WANDB_API_KEY < "$KEY_FILE"
+export WANDB_API_KEY
+
+: "${WANDB_API_KEY:?The W&B API key file is empty}"
+
 
 module purge
 module load 2024
