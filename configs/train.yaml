@@ -1,8 +1,9 @@
-seed: 0
+seed: 12
 device: cpu
 steps: 1000
 batch_size: 64
 num_workers: 0
+log_every: 100
 
 optimizer:
   learning_rate: 0.0001
@@ -11,6 +12,15 @@ optimizer:
   clip_grad: 0.25
 
 evaluation:
-  episodes: 20
+  every: 100
+  episodes: 5
+  seed: 12
   target_return: 575.0
-  target_cost: 10.0
+  target_costs: [10.0, 20.0, 40.0]
+
+experiment: car_run_poc # name of the experiment shown in wandB
+
+wandb:
+  project: constrained-decision-models
+  entity: null
+  mode: online  # online, offline, or disabled

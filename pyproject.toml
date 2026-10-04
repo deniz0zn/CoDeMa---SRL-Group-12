@@ -21,11 +21,13 @@ dependencies = [
     "protobuf==3.19.6",
     "setuptools==65.5.1",
     "pyyaml==6.0.3",
+    "wandb==0.22.3",
 ]
 
 [tool.uv]
 package = false
 environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'",]
+override-dependencies = ["wandb==0.22.3",]
 
 [tool.uv.sources]
 osrl-lib = { git = "https://github.com/liuzuxin/OSRL.git", rev = "03a4586463690566ec8d7830ca4027b46d4ad02f" }
