@@ -1,4 +1,4 @@
-model_script: models.cdm
+model_script: models.cdm_1
 
 model:
   embedding_dim: 128

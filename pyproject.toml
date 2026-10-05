@@ -22,6 +22,10 @@ dependencies = [
     "setuptools==65.5.1",
     "pyyaml==6.0.3",
     "wandb==0.22.3",
+    "mamba-ssm==1.2.0.post1",
+    "causal-conv1d==1.2.0.post2",
+    "triton==2.1.0",
+    "transformers==4.30.2",
 ]
 
 [tool.uv]
@@ -32,6 +36,8 @@ override-dependencies = ["wandb==0.22.3",]
 [tool.uv.sources]
 osrl-lib = { git = "https://github.com/liuzuxin/OSRL.git", rev = "03a4586463690566ec8d7830ca4027b46d4ad02f" }
 dsrl = { git = "https://github.com/liuzuxin/DSRL.git", rev = "71064f21976f59c8f7139d00f1294963a1558369" }
+mamba-ssm = { url = "https://github.com/state-spaces/mamba/releases/download/v1.2.0.post1/mamba_ssm-1.2.0.post1%2Bcu118torch1.13cxx11abiFALSE-cp310-cp310-linux_x86_64.whl" }
+causal-conv1d = { url = "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.2.0.post2/causal_conv1d-1.2.0.post2%2Bcu118torch1.13cxx11abiFALSE-cp310-cp310-linux_x86_64.whl" }
 
 [tool.uv.extra-build-dependencies]
 oapackage = [
