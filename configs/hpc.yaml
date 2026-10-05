@@ -2,44 +2,77 @@ dataset: configs/dataset.yaml
 training: configs/train.yaml
 
 training_overrides:
-  experiment: car_run_hpc
+  experiment: car_run_diagnostic_10k
   device: cuda
-  seed: 0
-  steps: 100000
+  steps: 10000
   batch_size: 64
   num_workers: 0
   log_every: 100
-
+  optimizer:
+    learning_rate: 0.0001
+    weight_decay: 0.0001
+    lr_warmup_steps: 500
+    clip_grad: 0.25
   evaluation:
-    every: 5000
-    episodes: 5
+    every: 500
+    episodes: 10
     seed: 123
+    target_return: 575.0
+    target_costs: [10.0, 20.0, 40.0]
+  wandb:
+    mode: online
 
 runs:
-  # Index 0: short GPU baseline
-  - name: cdm_pilot
-    model: configs/models/cdm.yaml
+  # Index 0
+  - name: cdt
+    model: configs/models/cdt.yaml
     training_overrides:
-      steps: 1000
-      evaluation:
-        every: 500
+      seed: 12
 
   # Index 1
   - name: cdt
     model: configs/models/cdt.yaml
+    training_overrides:
+      seed: 0
 
   # Index 2
-  - name: cdt_small
-    model: configs/models/cdt_small.yaml
+  - name: cdt
+    model: configs/models/cdt.yaml
+    training_overrides:
+      seed: 1
 
   # Index 3
+  - name: cdt_small
+    model: configs/models/cdt_small.yaml
+    training_overrides:
+      seed: 12
+
+  # Index 4
+  - name: cdt_small
+    model: configs/models/cdt_small.yaml
+    training_overrides:
+      seed: 0
+
+  # Index 5
+  - name: cdt_small
+    model: configs/models/cdt_small.yaml
+    training_overrides:
+      seed: 1
+
+  # Index 6
   - name: cdm
     model: configs/models/cdm.yaml
+    training_overrides:
+      seed: 12
 
-  # Index 4: example variant (we can construct models like this without a seperate yaml file)
-  - name: cdm_small
+  # Index 7
+  - name: cdm
     model: configs/models/cdm.yaml
-    model_overrides:
-      model:
-        embedding_dim: 64
-        num_layers: 2
+    training_overrides:
+      seed: 0
+
+  # Index 8
+  - name: cdm
+    model: configs/models/cdm.yaml
+    training_overrides:
+      seed: 1
