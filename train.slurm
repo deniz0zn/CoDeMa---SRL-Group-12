@@ -28,7 +28,9 @@ export WANDB_API_KEY
 
 module purge
 module load 2024
+module load 2025
 module load GCC/13.3.0
+module load CUDA/12.8.0
 
 cd "$SLURM_SUBMIT_DIR"
 

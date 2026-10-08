@@ -86,7 +86,7 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model", default="configs/models/cdt.yaml")
+    parser.add_argument("--model", default="configs/models/cdm.yaml")
     parser.add_argument("--dataset", default="configs/dataset.yaml")
     parser.add_argument("--training", default="configs/train.yaml")
     args = parser.parse_args()

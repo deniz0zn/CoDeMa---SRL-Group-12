@@ -21,7 +21,7 @@ dependencies = [
     "setuptools==65.5.1",
     "pyyaml==6.0.3",
     "wandb==0.22.3",
-    "transformers==4.30.2",
+    "transformers==4.38.2",
     "torch==2.9.1",
     "mamba-ssm",
     "triton>=3.5.0",
@@ -30,6 +30,7 @@ dependencies = [
     "ninja",
     "wheel",
     "packaging",
+    "apache-tvm-ffi==0.1.9",
 ]
 
 [tool.uv]
