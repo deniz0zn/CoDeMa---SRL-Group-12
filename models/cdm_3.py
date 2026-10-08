@@ -1,16 +1,16 @@
 import torch
 from torch import nn
 import mamba_ssm  # keep this here or my house burns down
-from mamba_ssm import Mamba
+from mamba_ssm import Mamba3
 from osrl.algorithms.cdt import CDT, CDTTrainer
 
 
 class MambaBlock(nn.Module):
-    def __init__(self, dim, d_state, d_conv, expand, dropout):
+    def __init__(self, dim, dropout, **mamba_config):
         super().__init__()
 
         self.norm = nn.LayerNorm(dim)
-        self.mixer = Mamba(d_model=dim, d_state=d_state, d_conv=d_conv, expand=expand, use_fast_path=True,)
+        self.mixer = Mamba3(d_model=dim, **mamba_config)
         self.dropout = nn.Dropout(dropout)
 
 
@@ -18,7 +18,10 @@ class MambaBlock(nn.Module):
         if padding_mask is not None:
             x = x.masked_fill(padding_mask.unsqueeze(-1), 0.0)
 
-        x = x + self.dropout(self.mixer(self.norm(x)))
+        with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+            mixed = self.mixer(self.norm(x))
+
+        x = x + self.dropout(mixed.to(x.dtype))
 
         if padding_mask is not None:
             x = x.masked_fill(padding_mask.unsqueeze(-1), 0.0)
@@ -27,13 +30,14 @@ class MambaBlock(nn.Module):
 
 
 class CDM(CDT):
-    def __init__(self, embedding_dim=128, num_layers=3, d_state=16, d_conv=4, expand=2,
-                 residual_dropout=0.1, **kwargs,):
-        super().__init__(embedding_dim=embedding_dim, num_layers=0, residual_dropout=residual_dropout, **kwargs,)
+    def __init__(self, embedding_dim=128, num_layers=3, d_state=128, expand=2, headdim = 64,
+                 is_mimo = True, mimo_rank = 4, chunk_size = 8, residual_dropout=0.1, **kwargs):
 
+        super().__init__(embedding_dim=embedding_dim, num_layers=0, residual_dropout=residual_dropout, **kwargs)
 
-        self.blocks = nn.ModuleList([MambaBlock(dim=embedding_dim, d_state=d_state, d_conv=d_conv, expand=expand,
-                                                dropout=residual_dropout,)for _ in range(num_layers)])
+        self.blocks = nn.ModuleList([MambaBlock(dim=embedding_dim, dropout=residual_dropout, d_state=d_state,
+                                                expand=expand, headdim=headdim, is_mimo=is_mimo, mimo_rank=mimo_rank,
+                                                chunk_size=chunk_size, is_outproj_norm=False,) for _ in range(num_layers)])
 
 
 def build(env, model_config, trainer_config, device):

@@ -1,12 +1,15 @@
-model_script: models.cdm_1
+model_script: models.cdm_3
 
 model:
   embedding_dim: 128
   num_layers: 3
 
-  d_state: 16
-  d_conv: 4
+  d_state: 128
   expand: 2
+  headdim: 64
+  is_mimo: true
+  mimo_rank: 4
+  chunk_size: 8
 
   residual_dropout: 0.1
   embedding_dropout: 0.1

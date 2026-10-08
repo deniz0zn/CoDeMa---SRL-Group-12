@@ -10,7 +10,6 @@ dependencies = [
     "fast-safe-rl==0.1.0",
     "bullet-safety-gym==1.4.0",
     "gymnasium==0.28.1",
-    "torch==1.13.1",
     "numpy==1.23.5",
     "scipy==1.10.1",
     "numba==0.57.1",
@@ -22,22 +21,29 @@ dependencies = [
     "setuptools==65.5.1",
     "pyyaml==6.0.3",
     "wandb==0.22.3",
-    "mamba-ssm==1.2.0.post1",
-    "causal-conv1d==1.2.0.post2",
-    "triton==2.1.0",
     "transformers==4.30.2",
+    "torch==2.9.1",
+    "mamba-ssm",
+    "triton>=3.5.0",
+    "quack-kernels==0.3.4",
+    "optuna==4.5.0",
+    "ninja",
+    "wheel",
+    "packaging",
 ]
 
 [tool.uv]
 package = false
 environments = ["sys_platform == 'linux' and platform_machine == 'x86_64'",]
-override-dependencies = ["wandb==0.22.3",]
+override-dependencies = ["wandb==0.22.3","torch==2.9.1",]
+no-build-isolation-package = ["mamba-ssm"]
 
 [tool.uv.sources]
 osrl-lib = { git = "https://github.com/liuzuxin/OSRL.git", rev = "03a4586463690566ec8d7830ca4027b46d4ad02f" }
 dsrl = { git = "https://github.com/liuzuxin/DSRL.git", rev = "71064f21976f59c8f7139d00f1294963a1558369" }
-mamba-ssm = { url = "https://github.com/state-spaces/mamba/releases/download/v1.2.0.post1/mamba_ssm-1.2.0.post1%2Bcu118torch1.13cxx11abiFALSE-cp310-cp310-linux_x86_64.whl" }
-causal-conv1d = { url = "https://github.com/Dao-AILab/causal-conv1d/releases/download/v1.2.0.post2/causal_conv1d-1.2.0.post2%2Bcu118torch1.13cxx11abiFALSE-cp310-cp310-linux_x86_64.whl" }
+mamba-ssm = { git = "https://github.com/state-spaces/mamba.git", rev = "e9594ce1c732d97440f0332fdc43170a2294dbfa" }
+torch = { index = "pytorch-cu128" }
+
 
 [tool.uv.extra-build-dependencies]
 oapackage = [
@@ -46,3 +52,7 @@ oapackage = [
     "setuptools==65.5.1",
 ]
 
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
