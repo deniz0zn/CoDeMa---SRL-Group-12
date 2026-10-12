@@ -11,29 +11,8 @@ from torch.utils.data import DataLoader
 from tqdm import trange
 
 from utils import RunLogger, load_config
+from grad_accum import train_step, evaluate
 
-
-def evaluate(trainer, config, scales):
-    python_state, numpy_state = random.getstate(), np.random.get_state()
-
-    results = []
-    try:
-        with torch.random.fork_rng():
-            for budget in config["target_costs"]:
-                random.seed(config["seed"])
-                np.random.seed(config["seed"])
-                torch.manual_seed(config["seed"])
-
-                reward, cost, length = trainer.evaluate(num_rollouts=config["episodes"],
-                                                        target_return=(config["target_return"] * scales["reward_scale"]),
-                                                        target_cost=budget * scales["cost_scale"])
-                results.append({
-                    "target_cost": float(budget),"mean_reward": float(reward), "mean_cost": float(cost), "mean_length": float(length)})
-
-    finally:
-        random.setstate(python_state); np.random.set_state(numpy_state)
-
-    return results
 
 
 def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.yaml", training_path="configs/train.yaml"):
@@ -49,7 +28,8 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
         env = gym.make(data_cfg["task"])
 
         try:
-            dataset = SequenceDataset(env.get_dataset(), **data_cfg["sequence"], **scales)
+            dataset = SequenceDataset(env.get_dataset(), **data_cfg["sequence"], **scales,
+                                      cost_transform = lambda cost: data_cfg["sampling_cost_offset"] - cost)
             batches = iter(DataLoader(dataset, batch_size=train_cfg["batch_size"], num_workers=train_cfg["num_workers"]))
 
             env = wrap_env(env, reward_scale=scales["reward_scale"])
@@ -66,8 +46,7 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
             model.train()
 
             for step in trange(1, train_cfg["steps"] + 1, desc="Training"):
-                batch = [tensor.to(device) for tensor in next(batches)]
-                trainer.train_one_step(*batch)
+                train_step(trainer, next(batches), train_cfg["microbatch_size"])
 
                 evaluate_now = step % evaluation["every"] == 0 or step == train_cfg["steps"]
 
@@ -75,7 +54,8 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
                     logger.log_training(step)
 
                 if evaluate_now:
-                    results = evaluate(trainer, evaluation, scales)
+                    results, episodes = evaluate(trainer, evaluation, scales, data_cfg["task"])
+                    logger._append_csv("episodes.csv", [{"step": step, **episode} for episode in episodes])
                     logger.log_evaluation(step, results, model, trainer)
 
         finally:

@@ -1,4 +1,5 @@
 task: OfflineCarRun-v0
+sampling_cost_offset: 70.0
 
 scales:
   reward_scale: 0.1
@@ -12,4 +13,4 @@ sequence:
   min_reward: 1.0
   max_rew_decrease: 100.0
   beta: 1.0
-  cost_sample: false
+  cost_sample: true

@@ -4,8 +4,9 @@ training: configs/train.yaml
 training_overrides:
   experiment: car_run_diagnostic_10k
   device: cuda
-  steps: 10000
-  batch_size: 64
+  steps: 50000
+  batch_size: 2048
+  microbatch_size: 128
   num_workers: 0
   log_every: 100
   optimizer:
@@ -14,11 +15,12 @@ training_overrides:
     lr_warmup_steps: 500
     clip_grad: 0.25
   evaluation:
-    every: 500
+    every: 1000
     episodes: 10
-    seed: 123
+    seed: 60000
     target_return: 575.0
     target_costs: [10.0, 20.0, 40.0]
+    action_mode: sample
   wandb:
     mode: online
 

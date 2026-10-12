@@ -1,7 +1,8 @@
 seed: 12
 device: cuda
-steps: 1000
-batch_size: 64
+steps: 50000
+batch_size: 2048
+microbatch_size: 128
 num_workers: 0
 log_every: 100
 
@@ -12,11 +13,12 @@ optimizer:
   clip_grad: 0.25
 
 evaluation:
-  every: 100
-  episodes: 5
-  seed: 12
+  every: 1000
+  episodes: 10
+  seed: 60000
   target_return: 575.0
   target_costs: [10.0, 20.0, 40.0]
+  action_mode: sample
 
 experiment: car_run_poc # name of the experiment shown in wandB
 
