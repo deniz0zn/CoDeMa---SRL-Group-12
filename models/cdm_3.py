@@ -55,6 +55,23 @@ def build(env, model_config, trainer_config, device):
 
 
     trainer = CDTTrainer(model=model, env=env, device=device, **trainer_config,)
+    defaults = trainer.optim.defaults
+    lr_rule = trainer.scheduler.lr_lambdas[0]
+    decay = []
+    no_decay = []
+
+    for parameter in model.parameters():
+        if not parameter.requires_grad:
+            continue
+        if getattr(parameter, "_no_weight_decay", False):
+            no_decay.append(parameter)
+        else:
+            decay.append(parameter)
+
+    trainer.optim = torch.optim.AdamW([{"params": decay, "weight_decay": defaults["weight_decay"]},
+                                       {"params": no_decay, "weight_decay": 0.0}],
+                                      lr=defaults["lr"], betas=defaults["betas"], eps=defaults["eps"], weight_decay=defaults["weight_decay"])
+    trainer.scheduler = torch.optim.lr_scheduler.LambdaLR(trainer.optim, lr_rule)
 
     return model, trainer
 
