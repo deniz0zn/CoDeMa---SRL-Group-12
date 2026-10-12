@@ -68,8 +68,8 @@ class RunLogger:
         try:
             if exc_type is None:
                 self.final = {
-                    "selection_budget": self.config["training"]
-                    ["evaluation"]["target_costs"][0],
+                    "selection_budgets": self.config["training"]["evaluation"]["target_costs"],
+                    "selection_rule": "joint_mean_cost_then_average_reward",
                     "best": self.best, "last": self.last,
                 }
 
@@ -128,30 +128,33 @@ class RunLogger:
         temporary.replace(path)
 
     def log_evaluation(self, step, results, model, trainer):
+        budgets = self.config["training"]["evaluation"]["target_costs"]
+        worst_ratio = max(r["mean_cost"] / r["target_cost"] for r in results)
+        average_reward = sum(r["mean_reward"] / len(results) for r in results)
+
+
+
+        joint_feasible = worst_ratio <= 1.0
+        score = (joint_feasible, average_reward if joint_feasible else -worst_ratio, average_reward)
+
         elapsed = perf_counter() - self.start
-        self.last = {"step": step, "elapsed_seconds": elapsed, "evaluation": results}
+        self.last = {"step": step, "elapsed_seconds": elapsed, "evaluation": results,
+                     "joint_feasible": joint_feasible, "worst_cost_ratio": worst_ratio}
 
-        self._append_csv("evaluation.csv", [{"step": step, "elapsed_seconds": elapsed, **result} for result in results])
+        self._append_csv("evaluation.csv", [{"step": step, "elapsed_seconds": elapsed, **r} for r in results])
         self._checkpoint("last.pt", model, trainer, step)
-
-
-        selected = results[0]
-        excess = max(selected["mean_cost"] - selected["target_cost"], 0.0)
-        score = (excess == 0.0, selected["mean_reward"] if excess == 0.0 else -excess, selected["mean_reward"])
-
+        self._checkpoint(f"step_{step:06d}.pt", model, trainer, step)
 
         if self.best_score is None or score > self.best_score:
             self.best_score = score
             self.best = self.last
-
             self._checkpoint("best.pt", model, trainer, step)
-
-            self.run.summary.update({
-                "best_step": step,
-                "best_reward": selected["mean_reward"],
-                "best_cost": selected["mean_cost"],
-                "selection_budget": selected["target_cost"],
-            })
+            self.run.summary.update({"best_step": step,
+                                     "best_joint_feasible": joint_feasible,
+                                     "best_average_reward": average_reward,
+                                     "best_worst_cost_ratio": worst_ratio,
+                                     "selection_budgets": budgets
+                                     })
 
         metrics = {"train/step": step}
         for result in results:
