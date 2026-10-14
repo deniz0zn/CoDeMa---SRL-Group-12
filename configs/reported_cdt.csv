@@ -1,0 +1,6 @@
+task,R_norm,C_norm
+OfflineAntRun-v0,89.76,0.83
+OfflineCarCircle-v0,89.53,0.85
+OfflineCarRun-v0,99.00,0.45
+OfflineDroneCircle-v0,73.01,0.88
+OfflineDroneRun-v0,63.64,0.58

@@ -1,0 +1,116 @@
+# E6long test evaluation at kappa = 10, 20, 40.
+# Final model (last.pt), 20 episodes per target on test seeds (1000000+), mean action.
+# Runs: 12 (indices 0-11). sbatch --array=0-11 eval.slurm configs/experiments/e6long_test.yaml
+
+experiment: E6long
+source: E6long
+evaluation: {episodes: 20, seed: 1000000, action_mode: mean}
+
+runs:
+  # Index 0
+  - name: cdmamba_K50
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 1
+  - name: cdmamba_K50
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 2
+  - name: cdmamba_K50
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 3
+  - name: cdconv_K50
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 4
+  - name: cdconv_K50
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 5
+  - name: cdconv_K50
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 6
+  - name: cdmamba_K50
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 7
+  - name: cdmamba_K50
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 8
+  - name: cdmamba_K50
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 9
+  - name: cdconv_K50
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 10
+  - name: cdconv_K50
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 11
+  - name: cdconv_K50
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]

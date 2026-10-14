@@ -1,0 +1,774 @@
+# E5: unrealistic reward targets, 8 targets in 0.5-1.3 x the dataset's best reward return, kappa = 10,
+# on the E1 models and the E3 models without augmentation (Fig. 2).
+# Final model (last.pt), 20 episodes per target on test seeds (1000000+), mean action.
+# Runs: 120 (indices 0-119). sbatch --array=0-119 eval.slurm configs/experiments/e5.yaml
+
+experiment: E5
+source: E1
+evaluation: {episodes: 20, seed: 1000000, action_mode: mean}
+
+runs:
+  # Index 0
+  - name: cdt_light
+    task: OfflineAntRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 1
+  - name: cdt_light
+    task: OfflineAntRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 2
+  - name: cdt_light
+    task: OfflineAntRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 3
+  - name: cdt_light
+    task: OfflineAntRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 4
+  - name: cdt_light
+    task: OfflineAntRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 5
+  - name: cdmamba
+    task: OfflineAntRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 6
+  - name: cdmamba
+    task: OfflineAntRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 7
+  - name: cdmamba
+    task: OfflineAntRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 8
+  - name: cdmamba
+    task: OfflineAntRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 9
+  - name: cdmamba
+    task: OfflineAntRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 10
+  - name: cdconv
+    task: OfflineAntRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 11
+  - name: cdconv
+    task: OfflineAntRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 12
+  - name: cdconv
+    task: OfflineAntRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 13
+  - name: cdconv
+    task: OfflineAntRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 14
+  - name: cdconv
+    task: OfflineAntRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 15
+  - name: cdt_light
+    task: OfflineCarCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 16
+  - name: cdt_light
+    task: OfflineCarCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 17
+  - name: cdt_light
+    task: OfflineCarCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 18
+  - name: cdt_light
+    task: OfflineCarCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 19
+  - name: cdt_light
+    task: OfflineCarCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 20
+  - name: cdmamba
+    task: OfflineCarCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 21
+  - name: cdmamba
+    task: OfflineCarCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 22
+  - name: cdmamba
+    task: OfflineCarCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 23
+  - name: cdmamba
+    task: OfflineCarCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 24
+  - name: cdmamba
+    task: OfflineCarCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 25
+  - name: cdconv
+    task: OfflineCarCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 26
+  - name: cdconv
+    task: OfflineCarCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 27
+  - name: cdconv
+    task: OfflineCarCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 28
+  - name: cdconv
+    task: OfflineCarCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 29
+  - name: cdconv
+    task: OfflineCarCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 30
+  - name: cdt_light
+    task: OfflineCarRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 31
+  - name: cdt_light
+    task: OfflineCarRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 32
+  - name: cdt_light
+    task: OfflineCarRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 33
+  - name: cdt_light
+    task: OfflineCarRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 34
+  - name: cdt_light
+    task: OfflineCarRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 35
+  - name: cdmamba
+    task: OfflineCarRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 36
+  - name: cdmamba
+    task: OfflineCarRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 37
+  - name: cdmamba
+    task: OfflineCarRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 38
+  - name: cdmamba
+    task: OfflineCarRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 39
+  - name: cdmamba
+    task: OfflineCarRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 40
+  - name: cdconv
+    task: OfflineCarRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 41
+  - name: cdconv
+    task: OfflineCarRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 42
+  - name: cdconv
+    task: OfflineCarRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 43
+  - name: cdconv
+    task: OfflineCarRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 44
+  - name: cdconv
+    task: OfflineCarRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 45
+  - name: cdt_light
+    task: OfflineDroneCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 46
+  - name: cdt_light
+    task: OfflineDroneCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 47
+  - name: cdt_light
+    task: OfflineDroneCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 48
+  - name: cdt_light
+    task: OfflineDroneCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 49
+  - name: cdt_light
+    task: OfflineDroneCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 50
+  - name: cdmamba
+    task: OfflineDroneCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 51
+  - name: cdmamba
+    task: OfflineDroneCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 52
+  - name: cdmamba
+    task: OfflineDroneCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 53
+  - name: cdmamba
+    task: OfflineDroneCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 54
+  - name: cdmamba
+    task: OfflineDroneCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 55
+  - name: cdconv
+    task: OfflineDroneCircle-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 56
+  - name: cdconv
+    task: OfflineDroneCircle-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 57
+  - name: cdconv
+    task: OfflineDroneCircle-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 58
+  - name: cdconv
+    task: OfflineDroneCircle-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 59
+  - name: cdconv
+    task: OfflineDroneCircle-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 60
+  - name: cdt_light
+    task: OfflineDroneRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 61
+  - name: cdt_light
+    task: OfflineDroneRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 62
+  - name: cdt_light
+    task: OfflineDroneRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 63
+  - name: cdt_light
+    task: OfflineDroneRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 64
+  - name: cdt_light
+    task: OfflineDroneRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 65
+  - name: cdmamba
+    task: OfflineDroneRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 66
+  - name: cdmamba
+    task: OfflineDroneRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 67
+  - name: cdmamba
+    task: OfflineDroneRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 68
+  - name: cdmamba
+    task: OfflineDroneRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 69
+  - name: cdmamba
+    task: OfflineDroneRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 70
+  - name: cdconv
+    task: OfflineDroneRun-v0
+    seed: 0
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 71
+  - name: cdconv
+    task: OfflineDroneRun-v0
+    seed: 1
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 72
+  - name: cdconv
+    task: OfflineDroneRun-v0
+    seed: 2
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 73
+  - name: cdconv
+    task: OfflineDroneRun-v0
+    seed: 3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 74
+  - name: cdconv
+    task: OfflineDroneRun-v0
+    seed: 4
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 75
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 76
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 77
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 78
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 79
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 80
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 81
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 82
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 83
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 84
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 85
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 86
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 87
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 88
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 89
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 90
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 91
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 92
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 93
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 94
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 95
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 96
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 97
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 98
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 99
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 100
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 101
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 102
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 103
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 104
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 105
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 106
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 107
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 108
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 109
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 110
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 111
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 112
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 113
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 114
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 115
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 116
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 117
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 118
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}
+
+  # Index 119
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    source: E3
+    reward_sweep: {low: 0.5, high: 1.3, num: 8, cost: 10.0}

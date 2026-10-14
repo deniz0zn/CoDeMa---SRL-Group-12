@@ -1,6 +1,7 @@
 import argparse
 import importlib
 import random
+from time import perf_counter
 
 import gymnasium as gym
 import numpy as np
@@ -54,7 +55,9 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
                     logger.log_training(step)
 
                 if evaluate_now:
+                    start = perf_counter()
                     results, episodes = evaluate(trainer, evaluation, scales, data_cfg["task"])
+                    logger.evaluation_seconds += perf_counter() - start
                     logger._append_csv("episodes.csv", [{"step": step, **episode} for episode in episodes])
                     logger.log_evaluation(step, results, model, trainer)
 

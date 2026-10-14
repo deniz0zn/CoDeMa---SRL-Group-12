@@ -1,0 +1,28 @@
+model_script: models.cdmamba
+
+model:
+  embedding_dim: 128
+  num_layers: 3
+
+  d_state: 64
+  expand: 2
+  headdim: 32  # d_inner = 256 -> 8 heads
+  rope_fraction: 0.5
+  is_mimo: false
+  mimo_rank: 4
+  chunk_size: 64
+  mamba_mlp: true
+  mamba_impl: cuda  # ref = pure-PyTorch Mamba-3 (CPU)
+
+  residual_dropout: 0.1
+  embedding_dropout: 0.1
+
+  time_emb: true
+  use_rew: true
+  use_cost: true
+  cost_transform: true
+  stochastic: true
+
+trainer:
+  loss_cost_weight: 0.02
+  loss_state_weight: 0.0

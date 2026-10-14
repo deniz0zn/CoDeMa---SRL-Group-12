@@ -1,0 +1,68 @@
+# E6full: one dedicated full run per model (Car-Circle, seed 0) for the actual training time;
+# efficiency.py also takes the trained weights of these runs.
+# Runs: 4 (indices 0-3). sbatch --array=0-3 --partition=gpu_a100 --cpus-per-task=18 --time=<from E0> train.slurm configs/experiments/e6full.yaml
+
+dataset: configs/dataset.yaml
+training: configs/train.yaml
+training_overrides:
+  experiment: E6full
+  device: cuda
+  steps: 100000
+  batch_size: 2048
+  microbatch_size: 2048
+  num_workers: 4
+  log_every: 100
+  optimizer: {learning_rate: 0.0001, weight_decay: 0.0001, lr_warmup_steps: 500, clip_grad: 0.25}
+  evaluation: {every: 5000, episodes: 5, seed: 500000, action_mode: mean}
+  wandb: {mode: online}
+
+runs:
+  # Index 0
+  - name: cdt
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 1
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 2
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 3
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]

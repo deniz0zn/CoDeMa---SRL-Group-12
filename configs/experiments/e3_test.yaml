@@ -1,0 +1,1223 @@
+# E3 test evaluation at kappa = 10, 20, 40 (Table 3, Fig. 7).
+# Final model (last.pt), 20 episodes per target on test seeds (1000000+), mean action.
+# Runs: 135 (indices 0-134). sbatch --array=0-134 eval.slurm configs/experiments/e3_test.yaml
+
+experiment: E3
+source: E3
+evaluation: {episodes: 20, seed: 1000000, action_mode: mean}
+
+runs:
+  # Index 0
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 1
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 2
+  - name: cdt_light_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 3
+  - name: cdt_light_noent
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 4
+  - name: cdt_light_noent
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 5
+  - name: cdt_light_noent
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 6
+  - name: cdt_light_det
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 7
+  - name: cdt_light_det
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 8
+  - name: cdt_light_det
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 9
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 10
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 11
+  - name: cdmamba_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 12
+  - name: cdmamba_noent
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 13
+  - name: cdmamba_noent
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 14
+  - name: cdmamba_noent
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 15
+  - name: cdmamba_det
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 16
+  - name: cdmamba_det
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 17
+  - name: cdmamba_det
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 18
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 19
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 20
+  - name: cdconv_noaug
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 21
+  - name: cdconv_noent
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 22
+  - name: cdconv_noent
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 23
+  - name: cdconv_noent
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 24
+  - name: cdconv_det
+    task: OfflineAntRun-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 25
+  - name: cdconv_det
+    task: OfflineAntRun-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 26
+  - name: cdconv_det
+    task: OfflineAntRun-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 27
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 28
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 29
+  - name: cdt_light_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 30
+  - name: cdt_light_noent
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 31
+  - name: cdt_light_noent
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 32
+  - name: cdt_light_noent
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 33
+  - name: cdt_light_det
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 34
+  - name: cdt_light_det
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 35
+  - name: cdt_light_det
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 36
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 37
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 38
+  - name: cdmamba_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 39
+  - name: cdmamba_noent
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 40
+  - name: cdmamba_noent
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 41
+  - name: cdmamba_noent
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 42
+  - name: cdmamba_det
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 43
+  - name: cdmamba_det
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 44
+  - name: cdmamba_det
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 45
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 46
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 47
+  - name: cdconv_noaug
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 48
+  - name: cdconv_noent
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 49
+  - name: cdconv_noent
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 50
+  - name: cdconv_noent
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 51
+  - name: cdconv_det
+    task: OfflineCarCircle-v0
+    seed: 0
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 52
+  - name: cdconv_det
+    task: OfflineCarCircle-v0
+    seed: 1
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 53
+  - name: cdconv_det
+    task: OfflineCarCircle-v0
+    seed: 2
+    targets:
+    - [450.0, 10.0]
+    - [500.0, 20.0]
+    - [550.0, 40.0]
+
+  # Index 54
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 55
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 56
+  - name: cdt_light_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 57
+  - name: cdt_light_noent
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 58
+  - name: cdt_light_noent
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 59
+  - name: cdt_light_noent
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 60
+  - name: cdt_light_det
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 61
+  - name: cdt_light_det
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 62
+  - name: cdt_light_det
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 63
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 64
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 65
+  - name: cdmamba_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 66
+  - name: cdmamba_noent
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 67
+  - name: cdmamba_noent
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 68
+  - name: cdmamba_noent
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 69
+  - name: cdmamba_det
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 70
+  - name: cdmamba_det
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 71
+  - name: cdmamba_det
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 72
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 73
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 74
+  - name: cdconv_noaug
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 75
+  - name: cdconv_noent
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 76
+  - name: cdconv_noent
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 77
+  - name: cdconv_noent
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 78
+  - name: cdconv_det
+    task: OfflineCarRun-v0
+    seed: 0
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 79
+  - name: cdconv_det
+    task: OfflineCarRun-v0
+    seed: 1
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 80
+  - name: cdconv_det
+    task: OfflineCarRun-v0
+    seed: 2
+    targets:
+    - [575.0, 10.0]
+    - [575.0, 20.0]
+    - [575.0, 40.0]
+
+  # Index 81
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 82
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 83
+  - name: cdt_light_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 84
+  - name: cdt_light_noent
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 85
+  - name: cdt_light_noent
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 86
+  - name: cdt_light_noent
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 87
+  - name: cdt_light_det
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 88
+  - name: cdt_light_det
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 89
+  - name: cdt_light_det
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 90
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 91
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 92
+  - name: cdmamba_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 93
+  - name: cdmamba_noent
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 94
+  - name: cdmamba_noent
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 95
+  - name: cdmamba_noent
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 96
+  - name: cdmamba_det
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 97
+  - name: cdmamba_det
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 98
+  - name: cdmamba_det
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 99
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 100
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 101
+  - name: cdconv_noaug
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 102
+  - name: cdconv_noent
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 103
+  - name: cdconv_noent
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 104
+  - name: cdconv_noent
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 105
+  - name: cdconv_det
+    task: OfflineDroneCircle-v0
+    seed: 0
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 106
+  - name: cdconv_det
+    task: OfflineDroneCircle-v0
+    seed: 1
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 107
+  - name: cdconv_det
+    task: OfflineDroneCircle-v0
+    seed: 2
+    targets:
+    - [700.0, 10.0]
+    - [750.0, 20.0]
+    - [800.0, 40.0]
+
+  # Index 108
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 109
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 110
+  - name: cdt_light_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 111
+  - name: cdt_light_noent
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 112
+  - name: cdt_light_noent
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 113
+  - name: cdt_light_noent
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 114
+  - name: cdt_light_det
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 115
+  - name: cdt_light_det
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 116
+  - name: cdt_light_det
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 117
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 118
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 119
+  - name: cdmamba_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 120
+  - name: cdmamba_noent
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 121
+  - name: cdmamba_noent
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 122
+  - name: cdmamba_noent
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 123
+  - name: cdmamba_det
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 124
+  - name: cdmamba_det
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 125
+  - name: cdmamba_det
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 126
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 127
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 128
+  - name: cdconv_noaug
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 129
+  - name: cdconv_noent
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 130
+  - name: cdconv_noent
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 131
+  - name: cdconv_noent
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 132
+  - name: cdconv_det
+    task: OfflineDroneRun-v0
+    seed: 0
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 133
+  - name: cdconv_det
+    task: OfflineDroneRun-v0
+    seed: 1
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]
+
+  # Index 134
+  - name: cdconv_det
+    task: OfflineDroneRun-v0
+    seed: 2
+    targets:
+    - [400.0, 10.0]
+    - [500.0, 20.0]
+    - [600.0, 40.0]

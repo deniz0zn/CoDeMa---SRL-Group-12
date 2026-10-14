@@ -1,0 +1,185 @@
+# E6long (optional): performance at K = 50 (seq_len 50), 2 tasks x 3 seeds.
+# Runs: 12 (indices 0-11). sbatch --array=0-11 --partition=gpu_a100 --cpus-per-task=18 --time=<from E0> train.slurm configs/experiments/e6long.yaml
+
+dataset: configs/dataset.yaml
+training: configs/train.yaml
+training_overrides:
+  experiment: E6long
+  device: cuda
+  steps: 100000
+  batch_size: 2048
+  microbatch_size: 2048
+  num_workers: 4
+  log_every: 100
+  optimizer: {learning_rate: 0.0001, weight_decay: 0.0001, lr_warmup_steps: 500, clip_grad: 0.25}
+  evaluation: {every: 5000, episodes: 5, seed: 500000, action_mode: mean}
+  wandb: {mode: online}
+
+runs:
+  # Index 0
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 1
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 2
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 3
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 4
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 5
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 6
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 7
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 8
+  - name: cdmamba_K50
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 9
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 10
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 11
+  - name: cdconv_K50
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    dataset_overrides:
+      sequence: {seq_len: 50}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]

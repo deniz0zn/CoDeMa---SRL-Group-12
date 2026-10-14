@@ -1,0 +1,482 @@
+# Table 1 and Table 2 of the report: 100k steps, 3 seeds, final model evaluated at kappa = 10
+# (20 episodes, test seeds), as in [CDT] Table 1. No other evaluation during training.
+# Last index: one CDT run (Car-Circle, seed 0) for the CDT row of Table 2.
+# Runs: 46 (indices 0-45). Submitted by run_all.sh.
+
+dataset: configs/dataset.yaml
+training: configs/train.yaml
+training_overrides:
+  experiment: E1
+  device: cuda
+  steps: 100000
+  batch_size: 2048
+  microbatch_size: 2048
+  num_workers: 4
+  log_every: 100
+  optimizer: {learning_rate: 0.0001, weight_decay: 0.0001, lr_warmup_steps: 500, clip_grad: 0.25}
+  evaluation: {every: 100000, episodes: 20, seed: 1000000, action_mode: mean, report: true}
+  wandb: {mode: disabled}  # online = log to the group W&B project (needs your key in ~/.config/wandb/api-key)
+
+runs:
+  # Index 0
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 1
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 2
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 3
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 4
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 5
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 6
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 7
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 8
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/antrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 9
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 10
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 11
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 12
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 13
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 14
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 15
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 16
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 17
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+
+  # Index 18
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 19
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 20
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 21
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 22
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 23
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 24
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 25
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 26
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carrun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+
+  # Index 27
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 28
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 29
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 30
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 31
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 32
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 33
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 34
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 35
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+
+  # Index 36
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 37
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 38
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 39
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 40
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 41
+  - name: cdmamba
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 42
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 43
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 44
+  - name: cdconv
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/dronerun.yaml
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+
+  # Index 45
+  - name: cdt
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+      experiment: CDTref

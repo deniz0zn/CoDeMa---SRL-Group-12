@@ -1,0 +1,694 @@
+# E3: component ablations (w/o augmentation, w/o entropy, deterministic), 5 tasks x 3 seeds.
+# The full models are the E1 runs with seeds 0-2.
+# CDT runs of E3 (optional).
+# Runs: 45 (indices 0-44). sbatch --array=0-44 --partition=gpu_a100 --cpus-per-task=18 --time=<from E0> train.slurm configs/experiments/e3_cdt.yaml
+
+dataset: configs/dataset.yaml
+training: configs/train.yaml
+training_overrides:
+  experiment: E3
+  device: cuda
+  steps: 100000
+  batch_size: 2048
+  microbatch_size: 2048
+  num_workers: 4
+  log_every: 100
+  optimizer: {learning_rate: 0.0001, weight_decay: 0.0001, lr_warmup_steps: 500, clip_grad: 0.25}
+  evaluation: {every: 5000, episodes: 5, seed: 500000, action_mode: mean}
+  wandb: {mode: online}
+
+runs:
+  # Index 0
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 1
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 2
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 3
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 4
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 5
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 6
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 7
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 8
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/antrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 9
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 10
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 11
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 12
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 13
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 14
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 15
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 16
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 17
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 18
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 19
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 20
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 21
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 22
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 23
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 24
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 25
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 26
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carrun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [575.0, 10.0]
+        - [575.0, 20.0]
+        - [575.0, 40.0]
+
+  # Index 27
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 28
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 29
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 30
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 31
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 32
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 33
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 34
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 35
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronecircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [700.0, 10.0]
+        - [750.0, 20.0]
+        - [800.0, 40.0]
+
+  # Index 36
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 37
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 38
+  - name: cdt_noaug
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+    dataset_overrides:
+      sequence: {augment_percent: 0.0}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 39
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 40
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 41
+  - name: cdt_noent
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {no_entropy: true}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 42
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 43
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 1
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]
+
+  # Index 44
+  - name: cdt_det
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/dronerun.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1, stochastic: false}
+    training_overrides:
+      seed: 2
+      evaluation:
+        targets:
+        - [400.0, 10.0]
+        - [500.0, 20.0]
+        - [600.0, 40.0]

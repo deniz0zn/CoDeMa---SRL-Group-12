@@ -1,0 +1,20 @@
+task: OfflineCarRun-v0
+sampling_cost_offset: 70.0
+
+scales:
+  reward_scale: 0.1
+  cost_scale: 1.0
+
+sequence:
+  seq_len: 10
+  augment_percent: 0.2
+  deg: 0
+  max_reward: 600.0
+  min_reward: 1.0
+  max_rew_decrease: 100.0
+  beta: 1.0
+  cost_sample: true
+
+# (reward, cost) evaluation targets of this task (OSRL cdt_configs; kappa in {10, 20, 40}),
+# used in the evaluation.targets of the experiment configs
+targets: [[575.0, 10.0], [575.0, 20.0], [575.0, 40.0]]

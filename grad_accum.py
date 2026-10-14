@@ -18,8 +18,8 @@ def train_step(trainer, batch, microbatch):
 
     metrics = dict.fromkeys(["nll", "ent", "act_loss", "cost_loss", "state_loss", "cost_acc"], 0.0)
 
-    temperature = model.temperature().detach()
-    if trainer.no_entropy:
+    temperature = model.temperature().detach() if model.stochastic else None
+    if model.stochastic and trainer.no_entropy:
         temperature = temperature * 0
 
     trainer.optim.zero_grad(set_to_none=True)
@@ -32,9 +32,20 @@ def train_step(trainer, batch, microbatch):
             raise ValueError("Microbatch has no valid tokens")
 
         policy, cp, sp = model(s, a, r, c, t, ~valid, ec)
-        nll = -policy.log_prob(a)[valid].mean()
-        ent = policy.entropy()[valid].mean()
-        act = nll - temperature * ent
+
+        vw = mask.sum().item() / valid_total
+        ew = len(s) / total
+
+        if model.stochastic:
+            nll = -policy.log_prob(a)[valid].mean()
+            ent = policy.entropy()[valid].mean()
+            act = nll - temperature * ent
+            aw = vw
+        else:
+            # deterministic policy: masked MSE over all elements, as in OSRL's CDTTrainer
+            nll = ent = torch.zeros((), device=device)
+            act = ((policy - a).square() * mask[..., None]).mean()
+            aw = ew
 
         cost = (F.nll_loss(cp.reshape(-1, 2), costs.flatten().long(), reduction="none") * mask.flatten()).mean()
 
@@ -43,16 +54,14 @@ def train_step(trainer, batch, microbatch):
         acc = ((cp.argmax(-1) == costs.long()) * valid).sum() / valid.sum()
 
 
-        vw = mask.sum().item() / valid_total
-        ew = len(s) / total
-        loss = vw * act + ew * (trainer.cost_weight * cost + trainer.state_weight * state)
+        loss = aw * act + ew * (trainer.cost_weight * cost + trainer.state_weight * state)
 
         if not torch.isfinite(loss):
             raise FloatingPointError("Nonfinite loss")
 
         loss.backward()
 
-        for key, value, weight in [("nll", nll, vw), ("ent", ent, vw), ("act_loss", act, vw),
+        for key, value, weight in [("nll", nll, vw), ("ent", ent, vw), ("act_loss", act, aw),
                                    ("cost_loss", cost, ew), ("state_loss", state, ew), ("cost_acc", acc, vw)]:
             metrics[key] += value.detach().item() * weight
 
@@ -60,13 +69,14 @@ def train_step(trainer, batch, microbatch):
     norm = torch.nn.utils.clip_grad_norm_(model.parameters(), limit, error_if_nonfinite=True)
 
     trainer.optim.step()
-    trainer.log_temperature_optimizer.zero_grad(set_to_none=True)
-    temperature_loss = (model.temperature() * (metrics["ent"] - model.target_entropy))
-    temperature_loss.backward()
-    trainer.log_temperature_optimizer.step()
+    if model.stochastic:
+        trainer.log_temperature_optimizer.zero_grad(set_to_none=True)
+        temperature_loss = (model.temperature() * (metrics["ent"] - model.target_entropy))
+        temperature_loss.backward()
+        trainer.log_temperature_optimizer.step()
     trainer.scheduler.step()
 
-    metrics.update(ent_reg=temperature.item(), grad_norm=float(norm), clipped=float(norm > limit),
+    metrics.update(ent_reg=temperature.item() if model.stochastic else 0.0, grad_norm=float(norm), clipped=float(norm > limit),
                    all_loss=(metrics["act_loss"] + trainer.cost_weight * metrics["cost_loss"] + trainer.state_weight * metrics["state_loss"]),
                    train_lr=trainer.scheduler.get_last_lr()[0])
 
@@ -93,11 +103,14 @@ def evaluate(trainer, config, scales, task):
     episodes = []
     devices = list(range(torch.cuda.device_count()))
 
+    # (reward, cost) pairs; without "targets", target_return is paired with every target cost
+    targets = config.get("targets") or [[config["target_return"], budget] for budget in config["target_costs"]]
+
     try:
         with torch.random.fork_rng(devices=devices):
             model.eval()
 
-            for budget in config["target_costs"]:
+            for target_return, budget in targets:
                 seeds = range(config["seed"], config["seed"] + config["episodes"])
                 for seed in seeds:
                     _seed(seed)
@@ -115,7 +128,7 @@ def evaluate(trainer, config, scales, task):
                         t = torch.arange(horizon, device=device).reshape(1, -1)
 
                         s[0, 0] = torch.as_tensor(obs, device=device)
-                        r[0, 0] = (config["target_return"] * scales["reward_scale"])
+                        r[0, 0] = (target_return * scales["reward_scale"])
                         c[0, 0] = budget * scales["cost_scale"]
                         ec = torch.tensor([budget * scales["cost_scale"]], dtype=torch.float32, device=device)
 
@@ -125,7 +138,10 @@ def evaluate(trainer, config, scales, task):
                             lo = max(0, step + 1 - model.seq_len)
                             hi = step + 1
                             policy, _, _ = model(s[:, lo:hi], a[:, lo:hi], r[:, lo:hi], c[:, lo:hi], t[:, lo:hi], None, ec,)
-                            action = (policy.mean if mode == "mean" else policy.sample())[0, -1]
+                            if model.stochastic:
+                                action = (policy.mean if mode == "mean" else policy.sample())[0, -1]
+                            else:
+                                action = policy[0, -1]
 
                             saturation += (action.abs() > model.max_action).float().mean().item()
                             action = action.clamp(-model.max_action, model.max_action)
@@ -145,6 +161,7 @@ def evaluate(trainer, config, scales, task):
                                 break
 
                         episodes.append(dict(seed=seed,
+                                             target_return=float(target_return),
                                              budget=float(budget),
                                              action_mode=mode,
                                              reward=float(reward_sum),
@@ -163,12 +180,13 @@ def evaluate(trainer, config, scales, task):
         model.train(was_training)
 
     results = []
-    for budget in config["target_costs"]:
-        group = [e for e in episodes if e["budget"] == budget]
+    for target_return, budget in targets:
+        group = [e for e in episodes if e["budget"] == budget and e["target_return"] == target_return]
         rewards = np.array([e["reward"] for e in group])
         costs = np.array([e["cost"] for e in group])
 
         results.append(dict(target_cost=float(budget),
+                            target_return=float(target_return),
                             mean_reward=float(rewards.mean()),
                             mean_cost=float(costs.mean()),
                             mean_length=float(np.mean([e["length"] for e in group])),

@@ -30,12 +30,15 @@ def run(config_path, index):
 
     model = read_yaml(entry["model"])
     training = read_yaml(config["training"])
+    dataset = read_yaml(entry.get("dataset", config["dataset"]))  # an entry may use its own dataset (task)
 
     merge(model, entry.get("model_overrides", {}))
     merge(training, config.get("training_overrides", {}))
     merge(training, entry.get("training_overrides", {}))
+    merge(dataset, config.get("dataset_overrides", {}))
+    merge(dataset, entry.get("dataset_overrides", {}))
 
-    print(f"Experiment: {index} | model: {entry['name']}")
+    print(f"Experiment: {index} | model: {entry['name']} | task: {dataset['task']}")
     print(f"Steps: {training['steps']} | seed: {training['seed']}")
 
     if torch.device(training["device"]).type == "cuda":
@@ -45,11 +48,13 @@ def run(config_path, index):
     with TemporaryDirectory(prefix="codema-") as directory:
         model_path = Path(directory) / f"{entry['name']}.yaml"
         training_path = Path(directory) / "training.yaml"
+        dataset_path = Path(directory) / "dataset.yaml"
 
         model_path.write_text(yaml.safe_dump(model), encoding="utf-8")
         training_path.write_text(yaml.safe_dump(training), encoding="utf-8")
+        dataset_path.write_text(yaml.safe_dump(dataset), encoding="utf-8")
 
-        result = train(model_path=str(model_path), dataset_path=config["dataset"], training_path=str(training_path))
+        result = train(model_path=str(model_path), dataset_path=str(dataset_path), training_path=str(training_path))
 
     print(f"Results: {result['run_dir']}")
     return result

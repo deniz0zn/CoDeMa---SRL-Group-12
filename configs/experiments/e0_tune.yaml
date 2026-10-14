@@ -1,0 +1,132 @@
+# E0 learning-rate tuning: lr in {1e-4, 3e-4}, Car-Circle, 30k steps, validation seeds.
+# Put the chosen lr of each model in its configs/models/<model>.yaml (trainer: learning_rate).
+# Runs: 8 (indices 0-7). sbatch --array=0-7 --partition=gpu_a100 --cpus-per-task=18 --time=<from E0> train.slurm configs/experiments/e0_tune.yaml
+
+dataset: configs/dataset.yaml
+training: configs/train.yaml
+training_overrides:
+  experiment: E0tune
+  device: cuda
+  steps: 30000
+  batch_size: 2048
+  microbatch_size: 2048
+  num_workers: 4
+  log_every: 100
+  optimizer: {learning_rate: 0.0001, weight_decay: 0.0001, lr_warmup_steps: 500, clip_grad: 0.25}
+  evaluation: {every: 5000, episodes: 5, seed: 500000, action_mode: mean}
+  wandb: {mode: online}
+
+runs:
+  # Index 0
+  - name: cdt_lr1e-4
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {learning_rate: 0.0001}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 1
+  - name: cdt_lr3e-4
+    model: configs/models/cdt.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      model: {embedding_dropout: 0.1}
+      trainer: {learning_rate: 0.0003}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 2
+  - name: cdt_light_lr1e-4
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0001}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 3
+  - name: cdt_light_lr3e-4
+    model: configs/models/cdt_light.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0003}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 4
+  - name: cdmamba_lr1e-4
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0001}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 5
+  - name: cdmamba_lr3e-4
+    model: configs/models/cdmamba.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0003}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 6
+  - name: cdconv_lr1e-4
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0001}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]
+
+  # Index 7
+  - name: cdconv_lr3e-4
+    model: configs/models/cdconv.yaml
+    dataset: configs/datasets/carcircle.yaml
+    model_overrides:
+      trainer: {learning_rate: 0.0003}
+    training_overrides:
+      seed: 0
+      evaluation:
+        targets:
+        - [450.0, 10.0]
+        - [500.0, 20.0]
+        - [550.0, 40.0]

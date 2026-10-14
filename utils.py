@@ -40,6 +40,7 @@ class RunLogger:
         self.best = None
         self.last = None
         self.start = perf_counter()
+        self.evaluation_seconds = 0.0  # time spent in evaluate(), added by train.py
 
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
         name = f"{config['model_name']}_seed{config['seed']}_{timestamp}"
@@ -67,10 +68,15 @@ class RunLogger:
     def __exit__(self, exc_type, exc_value, traceback):
         try:
             if exc_type is None:
+                wall = perf_counter() - self.start
                 self.final = {
                     "selection_budgets": self.config["training"]["evaluation"]["target_costs"],
                     "selection_rule": "joint_mean_cost_then_average_reward",
                     "best": self.best, "last": self.last,
+                    "time": {"wall_seconds": wall, "evaluation_seconds": self.evaluation_seconds,
+                             "training_seconds": wall - self.evaluation_seconds},
+                    "peak_gpu_memory_mb": (torch.cuda.max_memory_allocated() / 2**20
+                                           if torch.cuda.is_available() else None),
                 }
 
                 (self.directory / "final.json").write_text(json.dumps(self.final, indent=2), encoding="utf-8")
