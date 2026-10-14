@@ -5,7 +5,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=9
 #SBATCH --gpus=1
-#SBATCH --time=00:30:00
+#SBATCH --time=20:00:00
 #SBATCH --output=logs/%x-%A_%a.out
 #SBATCH --mail-user=d.ozen@student.tue.nl
 #SBATCH --mail-type=BEGIN,END

@@ -1,0 +1,38 @@
+training: configs/train.yaml
+
+training_overrides:
+  experiment: pilot
+  device: cuda
+  steps: 1000
+  log_every: 100
+  keep_step_checkpoints: false
+  evaluation:
+    every: 500
+    episodes: 2
+    seed: 60000
+    action_mode: sample
+  wandb:
+    mode: online
+
+final_evaluation:
+  episodes: 2
+  seed: 90000
+  mode: sample
+
+models:
+  - name: cdt
+    config: configs/models/cdt.yaml
+  - name: cdt_light
+    config: configs/models/cdt_light.yaml
+  - name: cdm
+    config: configs/models/cdm.yaml
+
+
+tasks:
+  - experiments/tasks/car_run.yaml
+  - experiments/tasks/car_circle.yaml
+  - experiments/tasks/ant_run.yaml
+  - experiments/tasks/drone_run.yaml
+  - experiments/tasks/drone_circle.yaml
+
+seeds: [0]
