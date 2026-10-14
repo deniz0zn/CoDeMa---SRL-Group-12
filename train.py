@@ -1,6 +1,7 @@
 import argparse
 import importlib
 import random
+from time import perf_counter
 
 import gymnasium as gym
 import numpy as np
@@ -21,7 +22,8 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
 
     random.seed(train_cfg["seed"]); np.random.seed(train_cfg["seed"]); torch.manual_seed(train_cfg["seed"])
 
-    device, scales, evaluation = train_cfg["device"], data_cfg["scales"], train_cfg["evaluation"]
+    device, scales = train_cfg["device"], data_cfg["scales"]
+    evaluation = {**train_cfg["evaluation"], **data_cfg.get("evaluation", {})}
 
 
     with RunLogger(config) as logger:
@@ -46,7 +48,9 @@ def train(model_path="configs/models/cdt.yaml", dataset_path="configs/dataset.ya
             model.train()
 
             for step in trange(1, train_cfg["steps"] + 1, desc="Training"):
-                train_step(trainer, next(batches), train_cfg["microbatch_size"])
+                batch, started = next(batches), perf_counter()
+                train_step(trainer, batch, train_cfg["microbatch_size"])
+                logger.train_seconds += perf_counter() - started
 
                 evaluate_now = step % evaluation["every"] == 0 or step == train_cfg["steps"]
 

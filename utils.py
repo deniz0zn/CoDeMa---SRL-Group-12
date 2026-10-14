@@ -39,12 +39,15 @@ class RunLogger:
         self.best_score = None
         self.best = None
         self.last = None
+        self.budgets = None
+        self.train_seconds = 0.0  # training-step time
         self.start = perf_counter()
 
         timestamp = datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S-%f")
-        name = f"{config['model_name']}_seed{config['seed']}_{timestamp}"
+        task = config["task"].removeprefix("Offline").removesuffix("-v0")
+        name = f"{config['model_name']}_{task}_seed{config['seed']}_{timestamp}"
 
-        self.directory = ROOT / "runs" / name
+        self.directory = ROOT / "runs" / config["experiment"] / name
         self.directory.mkdir(parents=True)
 
         (self.directory / "config.yaml").write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")
@@ -67,11 +70,10 @@ class RunLogger:
     def __exit__(self, exc_type, exc_value, traceback):
         try:
             if exc_type is None:
-                self.final = {
-                    "selection_budgets": self.config["training"]["evaluation"]["target_costs"],
-                    "selection_rule": "joint_mean_cost_then_average_reward",
-                    "best": self.best, "last": self.last,
-                }
+                self.final = {"selection_budgets": self.budgets,
+                              "selection_rule": "joint_mean_cost_then_average_reward",
+                              "best": self.best, "last": self.last,
+                              }
 
                 (self.directory / "final.json").write_text(json.dumps(self.final, indent=2), encoding="utf-8")
 
@@ -101,7 +103,8 @@ class RunLogger:
             self.counts[key] += 1
 
     def log_training(self, step):
-        metrics = {"train/step": step, **{key: total / self.counts[key] for key, total in self.totals.items()}}
+        metrics = {"train/step": step, "time/train_seconds": self.train_seconds,
+                   **{key: total / self.counts[key] for key, total in self.totals.items()}}
 
         self.totals.clear(); self.counts.clear()
 
@@ -128,22 +131,23 @@ class RunLogger:
         temporary.replace(path)
 
     def log_evaluation(self, step, results, model, trainer):
-        budgets = self.config["training"]["evaluation"]["target_costs"]
+        budgets = self.budgets = [r["target_cost"] for r in results]
         worst_ratio = max(r["mean_cost"] / r["target_cost"] for r in results)
         average_reward = sum(r["mean_reward"] / len(results) for r in results)
-
-
 
         joint_feasible = worst_ratio <= 1.0
         score = (joint_feasible, average_reward if joint_feasible else -worst_ratio, average_reward)
 
         elapsed = perf_counter() - self.start
-        self.last = {"step": step, "elapsed_seconds": elapsed, "evaluation": results,
-                     "joint_feasible": joint_feasible, "worst_cost_ratio": worst_ratio}
+        self.last = {"step": step, "elapsed_seconds": elapsed, "train_seconds": self.train_seconds,
+                     "evaluation": results, "joint_feasible": joint_feasible, "worst_cost_ratio": worst_ratio
+                     }
 
-        self._append_csv("evaluation.csv", [{"step": step, "elapsed_seconds": elapsed, **r} for r in results])
+        self._append_csv("evaluation.csv", [{"step": step, "elapsed_seconds": elapsed,
+                                             "train_seconds": self.train_seconds, **r} for r in results])
         self._checkpoint("last.pt", model, trainer, step)
-        self._checkpoint(f"step_{step:06d}.pt", model, trainer, step)
+        if self.config["training"].get("keep_step_checkpoints", True):
+            self._checkpoint(f"step_{step:06d}.pt", model, trainer, step)
 
         if self.best_score is None or score > self.best_score:
             self.best_score = score

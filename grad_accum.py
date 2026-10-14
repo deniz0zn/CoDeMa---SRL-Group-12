@@ -75,6 +75,12 @@ def train_step(trainer, batch, microbatch):
     return metrics
 
 
+def evaluation_targets(config):
+    """(target_return, target_cost) per budget; falls back to one target_return shared by all target_costs."""
+    if "targets" in config:
+        return [(float(reward), float(cost)) for reward, cost in config["targets"]]
+    return [(float(config["target_return"]), float(cost)) for cost in config["target_costs"]]
+
 def _seed(seed):
     random.seed(seed)
     np.random.seed(seed)
@@ -97,7 +103,7 @@ def evaluate(trainer, config, scales, task):
         with torch.random.fork_rng(devices=devices):
             model.eval()
 
-            for budget in config["target_costs"]:
+            for target_return, budget in evaluation_targets(config):
                 seeds = range(config["seed"], config["seed"] + config["episodes"])
                 for seed in seeds:
                     _seed(seed)
@@ -115,7 +121,7 @@ def evaluate(trainer, config, scales, task):
                         t = torch.arange(horizon, device=device).reshape(1, -1)
 
                         s[0, 0] = torch.as_tensor(obs, device=device)
-                        r[0, 0] = (config["target_return"] * scales["reward_scale"])
+                        r[0, 0] = (target_return * scales["reward_scale"])
                         c[0, 0] = budget * scales["cost_scale"]
                         ec = torch.tensor([budget * scales["cost_scale"]], dtype=torch.float32, device=device)
 
@@ -146,6 +152,7 @@ def evaluate(trainer, config, scales, task):
 
                         episodes.append(dict(seed=seed,
                                              budget=float(budget),
+                                             target_return = target_return,
                                              action_mode=mode,
                                              reward=float(reward_sum),
                                              cost=cost_sum,
@@ -162,15 +169,22 @@ def evaluate(trainer, config, scales, task):
         np.random.set_state(np_state)
         model.train(was_training)
 
+    reference = gym.spec(task).kwargs
+    reward_min, reward_max = reference["min_episode_reward"], reference["max_episode_reward"]
+
     results = []
-    for budget in config["target_costs"]:
+    for target_return, budget in evaluation_targets(config):
         group = [e for e in episodes if e["budget"] == budget]
         rewards = np.array([e["reward"] for e in group])
         costs = np.array([e["cost"] for e in group])
+        epsilon = 1.0 if budget == 0 else 0.0
 
         results.append(dict(target_cost=float(budget),
+                            target_return=target_return,
                             mean_reward=float(rewards.mean()),
                             mean_cost=float(costs.mean()),
+                            normalized_reward=float((rewards.mean() - reward_min) / (reward_max - reward_min)),
+                            normalized_cost=float((costs.mean() + epsilon) / (budget + epsilon)),
                             mean_length=float(np.mean([e["length"] for e in group])),
                             reward_sd=(float(rewards.std(ddof=1)) if len(group) > 1 else 0.0),
                             cost_sd=(float(costs.std(ddof=1)) if len(group) > 1 else 0.0),
