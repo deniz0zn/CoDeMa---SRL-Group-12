@@ -1,5 +1,6 @@
 import torch
 from torch import nn
+from torch.nn import functional as F
 import mamba_ssm  # keep this here or my house burns down
 from mamba_ssm import Mamba3
 from osrl.algorithms.cdt import CDT, CDTTrainer
@@ -22,9 +23,12 @@ class MambaBlock(nn.Module):
     def forward(self, x, padding_mask=None):
         if padding_mask is not None:
             x = x.masked_fill(padding_mask.unsqueeze(-1), 0.0)
-
+        
+        length = x.shape[1]
+        pad = -length % self.mixer.chunk_size
+                
         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-            mixed = self.mixer(self.norm(x))
+            mixed = self.mixer(F.pad(self.norm(x), (0, 0, 0, pad)))[:, :length]
 
         x = x + self.dropout(mixed.to(x.dtype))
 
