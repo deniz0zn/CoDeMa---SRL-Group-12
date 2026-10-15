@@ -36,4 +36,4 @@ tasks:
   - experiments/tasks/drone_run.yaml
   - experiments/tasks/drone_circle.yaml
 
-seeds: [0, 1, 2]
+seeds: [4, 42, 420]
