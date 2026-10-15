@@ -1,9 +1,9 @@
 #!/bin/bash
 #SBATCH --job-name=codema-exp
-#SBATCH --partition=gpu_mig
+#SBATCH --partition=gpu_a100
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=9
+#SBATCH --cpus-per-task=18
 #SBATCH --gpus=1
 #SBATCH --time=20:00:00
 #SBATCH --output=logs/%x-%A_%a.out
