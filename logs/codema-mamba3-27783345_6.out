@@ -1,0 +1,48 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Experiment: 6 | model: cdm
+Steps: 10000 | seed: 12
+GPU: NVIDIA A100-SXM4-40GB MIG 3g.20gb
+wandb: Currently logged in as: d-ozen (dozen) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run xl3ezj1u
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /gpfs/home2/scur0302/codema/runs/cdm_seed12_20261008-184959-491617/wandb/run-20261008_204959-xl3ezj1u
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cdm_seed12_20261008-184959-491617
+wandb: ⭐️ View project at https://wandb.ai/dozen/constrained-decision-models
+wandb: 🚀 View run at https://wandb.ai/dozen/constrained-decision-models/runs/xl3ezj1u
+Loading dataset from /home/scur0302/.dsrl/datasets/SafetyCarRun-v0-40-651.hdf5
+load datafile:   0%|          | 0/7 [00:00<?, ?it/s]load datafile: 100%|██████████| 7/7 [00:00<00:00, 78.91it/s]
+Processing trajectories:   0%|          | 0/130200 [00:00<?, ?it/s]Processing trajectories:  11%|█         | 13784/130200 [00:00<00:00, 137830.60it/s]Processing trajectories:  21%|██        | 27665/130200 [00:00<00:00, 138403.67it/s]Processing trajectories:  32%|███▏      | 41600/130200 [00:00<00:00, 138598.65it/s]Processing trajectories:  43%|████▎     | 55600/130200 [00:00<00:00, 138610.88it/s]Processing trajectories:  53%|█████▎    | 69600/130200 [00:00<00:00, 138700.04it/s]Processing trajectories:  64%|██████▍   | 83600/130200 [00:00<00:00, 138653.79it/s]Processing trajectories:  75%|███████▍  | 97600/130200 [00:00<00:00, 138824.29it/s]Processing trajectories:  86%|████████▌ | 111672/130200 [00:00<00:00, 139423.16it/s]Processing trajectories:  96%|█████████▋| 125615/130200 [00:00<00:00, 139044.70it/s]Processing trajectories: 100%|██████████| 130200/130200 [00:00<00:00, 138781.35it/s]
+after filter 503
+Pareto: 6 optimal values, 6 objects
+original data: 651, augment data: 100, total: 751
+wandb: updating run metadata
+wandb: updating run metadata; uploading wandb-summary.json
+wandb: uploading config.yaml
+wandb: 🚀 View run cdm_seed12_20261008-184959-491617 at: https://wandb.ai/dozen/constrained-decision-models/runs/xl3ezj1u
+wandb: ⭐️ View project at: https://wandb.ai/dozen/constrained-decision-models
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./runs/cdm_seed12_20261008-184959-491617/wandb/run-20261008_204959-xl3ezj1u/logs
+Traceback (most recent call last):
+  File "/gpfs/home2/scur0302/codema/hpc.py", line 64, in <module>
+    run(args.config, args.index)
+  File "/gpfs/home2/scur0302/codema/hpc.py", line 52, in run
+    result = train(model_path=str(model_path), dataset_path=config["dataset"], training_path=str(training_path))
+  File "/gpfs/home2/scur0302/codema/train.py", line 57, in train
+    model_script = importlib.import_module(model_cfg["model_script"])
+  File "/home/scur0302/.local/share/uv/python/cpython-3.10.22-linux-x86_64-gnu/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/gpfs/home2/scur0302/codema/models/cdm_3.py", line 4, in <module>
+    from mamba_ssm import Mamba3
+ImportError: cannot import name 'Mamba3' from 'mamba_ssm' (/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/__init__.py)
+srun: error: gcn4: task 0: Exited with exit code 1
+srun: Terminating StepId=27783345.0

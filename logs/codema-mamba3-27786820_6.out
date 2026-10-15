@@ -1,0 +1,74 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Experiment: 6 | model: cdm
+Steps: 10000 | seed: 12
+GPU: NVIDIA A100-SXM4-40GB MIG 3g.20gb
+wandb: Currently logged in as: d-ozen (dozen) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run hz9ppqr9
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /gpfs/home2/scur0302/codema/runs/cdm_seed12_20261008-193429-090345/wandb/run-20261008_213429-hz9ppqr9
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cdm_seed12_20261008-193429-090345
+wandb: ⭐️ View project at https://wandb.ai/dozen/constrained-decision-models
+wandb: 🚀 View run at https://wandb.ai/dozen/constrained-decision-models/runs/hz9ppqr9
+Loading dataset from /home/scur0302/.dsrl/datasets/SafetyCarRun-v0-40-651.hdf5
+load datafile:   0%|          | 0/7 [00:00<?, ?it/s]load datafile: 100%|██████████| 7/7 [00:00<00:00, 83.19it/s]
+Processing trajectories:   0%|          | 0/130200 [00:00<?, ?it/s]Processing trajectories:  10%|▉         | 13000/130200 [00:00<00:00, 129608.61it/s]Processing trajectories:  20%|██        | 26400/130200 [00:00<00:00, 132088.55it/s]Processing trajectories:  31%|███       | 40000/130200 [00:00<00:00, 133523.35it/s]Processing trajectories:  41%|████      | 53600/130200 [00:00<00:00, 133923.56it/s]Processing trajectories:  52%|█████▏    | 67200/130200 [00:00<00:00, 134422.28it/s]Processing trajectories:  62%|██████▏   | 80800/130200 [00:00<00:00, 134581.95it/s]Processing trajectories:  73%|███████▎  | 94400/130200 [00:00<00:00, 134705.57it/s]Processing trajectories:  83%|████████▎ | 108000/130200 [00:00<00:00, 134808.70it/s]Processing trajectories:  93%|█████████▎| 121600/130200 [00:00<00:00, 134880.72it/s]Processing trajectories: 100%|██████████| 130200/130200 [00:00<00:00, 134231.91it/s]
+after filter 503
+Pareto: 6 optimal values, 6 objects
+original data: 651, augment data: 100, total: 751
+[WARNING] Field "span" in type "ir.TupleType" duplicates an ancestor field in "ir.Type". Child types should not re-register inherited fields.
+[WARNING] Field "span" in type "ir.FuncType" duplicates an ancestor field in "ir.Type". Child types should not re-register inherited fields.
+[WARNING] Field "span" in type "ir.TensorMapType" duplicates an ancestor field in "ir.Type". Child types should not re-register inherited fields.
+[WARNING] Field "binding_blocks" in type "script.ir_builder.relax.FunctionFrame" duplicates an ancestor field in "script.ir_builder.relax.SeqExprFrame". Child types should not re-register inherited fields.
+[WARNING] Field "output" in type "script.ir_builder.relax.FunctionFrame" duplicates an ancestor field in "script.ir_builder.relax.SeqExprFrame". Child types should not re-register inherited fields.
+wandb: updating run metadata
+wandb: uploading summary, console lines 0-5
+wandb: 🚀 View run cdm_seed12_20261008-193429-090345 at: https://wandb.ai/dozen/constrained-decision-models/runs/hz9ppqr9
+wandb: ⭐️ View project at: https://wandb.ai/dozen/constrained-decision-models
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./runs/cdm_seed12_20261008-193429-090345/wandb/run-20261008_213429-hz9ppqr9/logs
+Traceback (most recent call last):
+  File "/gpfs/home2/scur0302/codema/hpc.py", line 64, in <module>
+    run(args.config, args.index)
+  File "/gpfs/home2/scur0302/codema/hpc.py", line 52, in run
+    result = train(model_path=str(model_path), dataset_path=config["dataset"], training_path=str(training_path))
+  File "/gpfs/home2/scur0302/codema/train.py", line 57, in train
+    model_script = importlib.import_module(model_cfg["model_script"])
+  File "/home/scur0302/.local/share/uv/python/cpython-3.10.22-linux-x86_64-gnu/lib/python3.10/importlib/__init__.py", line 126, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1050, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 1027, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 688, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 883, in exec_module
+  File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed
+  File "/gpfs/home2/scur0302/codema/models/cdm_3.py", line 3, in <module>
+    import mamba_ssm  # keep this here or my house burns down
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/__init__.py", line 6, in <module>
+    from mamba_ssm.modules.mamba3 import Mamba3
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/modules/mamba3.py", line 13, in <module>
+    from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo import mamba3_mimo as mamba3_mimo_combined
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py", line 19, in <module>
+    from mamba_ssm.ops.tilelang.mamba3.mamba3_mimo_fwd import mamba_mimo_forward
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_fwd.py", line 10, in <module>
+    import tilelang
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/__init__.py", line 133, in <module>
+    import tvm
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/3rdparty/tvm/python/tvm/__init__.py", line 40, in <module>
+    from .ir import IRModule
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/3rdparty/tvm/python/tvm/ir/__init__.py", line 21, in <module>
+    from .attrs import Attrs, DictAttrs, make_node
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/3rdparty/tvm/python/tvm/ir/attrs.py", line 77, in <module>
+    class DictAttrs(Attrs):
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tvm_ffi/registry.py", line 95, in _decorator_with_name
+    return _register(cls, type_key)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tvm_ffi/registry.py", line 86, in _register
+    _add_class_attrs(type_cls=cls, type_info=info)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tvm_ffi/registry.py", line 403, in _add_class_attrs
+    setattr(type_cls, name, field.as_property(type_cls))
+AttributeError: attribute '__dict__' of 'type' objects is not writable
+srun: error: gcn3: task 0: Exited with exit code 1
+srun: Terminating StepId=27786820.0

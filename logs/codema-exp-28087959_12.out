@@ -1,0 +1,65 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Cell 12/14 | model: cdm | task: OfflineAntRun-v0 | seed: 0
+Steps: 1000
+GPU: NVIDIA A100-SXM4-40GB MIG 3g.20gb
+wandb: Currently logged in as: d-ozen (dozen) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run dxrl14ee
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /gpfs/home2/scur0302/codema/runs/pilot/cdm_AntRun_seed0_20261014-160348-703735/wandb/run-20261014_180349-dxrl14ee
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cdm_AntRun_seed0_20261014-160348-703735
+wandb: ⭐️ View project at https://wandb.ai/dozen/constrained-decision-models
+wandb: 🚀 View run at https://wandb.ai/dozen/constrained-decision-models/runs/dxrl14ee
+Loading dataset from /home/scur0302/.dsrl/datasets/SafetyAntRun-v0-150-1816.hdf5
+load datafile:   0%|          | 0/7 [00:00<?, ?it/s]load datafile:  14%|█▍        | 1/7 [00:00<00:00,  9.56it/s]load datafile:  43%|████▎     | 3/7 [00:00<00:00,  6.17it/s]load datafile:  57%|█████▋    | 4/7 [00:00<00:00,  4.38it/s]load datafile: 100%|██████████| 7/7 [00:00<00:00,  8.35it/s]
+Processing trajectories:   0%|          | 0/363010 [00:00<?, ?it/s]Processing trajectories:   4%|▍         | 13675/363010 [00:00<00:02, 135787.00it/s]Processing trajectories:   8%|▊         | 27475/363010 [00:00<00:02, 136411.11it/s]Processing trajectories:  11%|█▏        | 41275/363010 [00:00<00:02, 136644.49it/s]Processing trajectories:  15%|█▌        | 55075/363010 [00:00<00:02, 136839.87it/s]Processing trajectories:  19%|█▉        | 69056/363010 [00:00<00:02, 137903.91it/s]Processing trajectories:  23%|██▎       | 82847/363010 [00:00<00:02, 137750.83it/s]Processing trajectories:  27%|██▋       | 96623/363010 [00:00<00:01, 137356.72it/s]Processing trajectories:  30%|███       | 110360/363010 [00:00<00:01, 136956.72it/s]Processing trajectories:  34%|███▍      | 124075/363010 [00:00<00:01, 136825.87it/s]Processing trajectories:  38%|███▊      | 137875/363010 [00:01<00:01, 137073.13it/s]Processing trajectories:  42%|████▏     | 151675/363010 [00:01<00:01, 137032.62it/s]Processing trajectories:  46%|████▌     | 165379/363010 [00:01<00:01, 136670.90it/s]Processing trajectories:  49%|████▉     | 179075/363010 [00:01<00:01, 136543.54it/s]Processing trajectories:  53%|█████▎    | 192875/363010 [00:01<00:01, 136840.00it/s]Processing trajectories:  57%|█████▋    | 206675/363010 [00:01<00:01, 136896.30it/s]Processing trajectories:  61%|██████    | 220475/363010 [00:01<00:01, 137127.71it/s]Processing trajectories:  65%|██████▍   | 234210/363010 [00:01<00:00, 136988.53it/s]Processing trajectories:  68%|██████▊   | 248010/363010 [00:01<00:00, 136839.70it/s]Processing trajectories:  72%|███████▏  | 261810/363010 [00:01<00:00, 136780.76it/s]Processing trajectories:  76%|███████▌  | 275610/363010 [00:02<00:00, 136706.42it/s]Processing trajectories:  80%|███████▉  | 289396/363010 [00:02<00:00, 137049.67it/s]Processing trajectories:  83%|████████▎ | 303102/363010 [00:02<00:00, 136702.63it/s]Processing trajectories:  87%|████████▋ | 316810/363010 [00:02<00:00, 136429.51it/s]Processing trajectories:  91%|█████████ | 330610/363010 [00:02<00:00, 136551.20it/s]Processing trajectories:  95%|█████████▍| 344410/363010 [00:02<00:00, 136859.41it/s]Processing trajectories:  99%|█████████▊| 358210/363010 [00:02<00:00, 137049.54it/s]Processing trajectories: 100%|██████████| 363010/363010 [00:02<00:00, 136897.51it/s]
+after filter 1406
+Pareto: 33 optimal values, 33 objects
+original data: 1816, augment data: 281, total: 2097
+2026-10-14 18:04:05  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-10-14 18:04:21  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-10-14 18:04:24  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-10-14 18:04:50  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-10-14 18:04:53  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-10-14 18:05:53  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+Training:   0%|          | 0/1000 [00:00<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:06<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:22<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:24<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:50<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:54<?, ?it/s]                                                  Training:   0%|          | 0/1000 [01:53<?, ?it/s]Training:   0%|          | 0/1000 [01:57<?, ?it/s]
+wandb: updating run metadata
+wandb: uploading output.log; uploading config.yaml
+wandb: uploading console lines 12-12
+wandb: 
+wandb: Run summary:
+wandb: parameters 447627
+wandb: 
+wandb: 🚀 View run cdm_AntRun_seed0_20261014-160348-703735 at: https://wandb.ai/dozen/constrained-decision-models/runs/dxrl14ee
+wandb: ⭐️ View project at: https://wandb.ai/dozen/constrained-decision-models
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./runs/pilot/cdm_AntRun_seed0_20261014-160348-703735/wandb/run-20261014_180349-dxrl14ee/logs
+Traceback (most recent call last):
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 88, in <module>
+    run(args.config, args.index)
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 46, in run
+    result = train(model_path=str(paths["model"]), dataset_path=str(paths["dataset"]),
+  File "/gpfs/home2/scur0302/codema/train.py", line 52, in train
+    train_step(trainer, batch, train_cfg["microbatch_size"])
+  File "/gpfs/home2/scur0302/codema/grad_accum.py", line 53, in train_step
+    loss.backward()
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/_tensor.py", line 625, in backward
+    torch.autograd.backward(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/graph.py", line 841, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/function.py", line 315, in apply
+    return user_fn(self, *args)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py", line 184, in backward
+    dD, dZ, dOut_Norm_Weight) = mamba_mimo_bwd_combined(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_bwd.py", line 1563, in mamba_mimo_bwd_combined
+    ddA += bwd_dadt_fused_triton(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/triton/mamba3/mamba3_mimo_utils.py", line 544, in bwd_dadt_fused_triton
+    assert S % chunk_size == 0, f"Sequence length {S} must be divisible by chunk_size {chunk_size}"
+AssertionError: Sequence length 40 must be divisible by chunk_size 16
+srun: error: gcn2: task 0: Exited with exit code 1
+srun: Terminating StepId=28087975.0

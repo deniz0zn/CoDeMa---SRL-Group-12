@@ -1,0 +1,112 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Cell 10/14 | model: cdm | task: OfflineCarRun-v0 | seed: 0
+Steps: 1000
+GPU: NVIDIA A100-SXM4-40GB MIG 3g.20gb
+wandb: Currently logged in as: d-ozen (dozen) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run s4mexhwy
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /gpfs/home2/scur0302/codema/runs/pilot/cdm_CarRun_seed0_20261014-154048-622688/wandb/run-20261014_174048-s4mexhwy
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cdm_CarRun_seed0_20261014-154048-622688
+wandb: ⭐️ View project at https://wandb.ai/dozen/constrained-decision-models
+wandb: 🚀 View run at https://wandb.ai/dozen/constrained-decision-models/runs/s4mexhwy
+Loading dataset from /home/scur0302/.dsrl/datasets/SafetyCarRun-v0-40-651.hdf5
+load datafile:   0%|          | 0/7 [00:00<?, ?it/s]load datafile: 100%|██████████| 7/7 [00:00<00:00, 83.64it/s]
+Processing trajectories:   0%|          | 0/130200 [00:00<?, ?it/s]Processing trajectories:  10%|█         | 13600/130200 [00:00<00:00, 134929.20it/s]Processing trajectories:  21%|██        | 27200/130200 [00:00<00:00, 134654.90it/s]Processing trajectories:  32%|███▏      | 41084/130200 [00:00<00:00, 136553.73it/s]Processing trajectories:  42%|████▏     | 55000/130200 [00:00<00:00, 137049.09it/s]Processing trajectories:  53%|█████▎    | 69000/130200 [00:00<00:00, 137632.64it/s]Processing trajectories:  64%|██████▎   | 83000/130200 [00:00<00:00, 137993.26it/s]Processing trajectories:  75%|███████▍  | 97000/130200 [00:00<00:00, 138162.27it/s]Processing trajectories:  85%|████████▌ | 110817/130200 [00:00<00:00, 138138.09it/s]Processing trajectories:  96%|█████████▌| 124800/130200 [00:00<00:00, 138642.88it/s]Processing trajectories: 100%|██████████| 130200/130200 [00:00<00:00, 137720.87it/s]
+after filter 503
+Pareto: 6 optimal values, 6 objects
+original data: 651, augment data: 100, total: 751
+2026-10-14 17:41:08  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+Training:   0%|          | 0/1000 [00:00<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:07<?, ?it/s]Training:   0%|          | 0/1000 [00:07<?, ?it/s]
+wandb: updating run metadata
+wandb: uploading wandb-summary.json; uploading config.yaml
+wandb: uploading summary, console lines 6-7
+wandb: 
+wandb: Run summary:
+wandb: parameters 438629
+wandb: 
+wandb: 🚀 View run cdm_CarRun_seed0_20261014-154048-622688 at: https://wandb.ai/dozen/constrained-decision-models/runs/s4mexhwy
+wandb: ⭐️ View project at: https://wandb.ai/dozen/constrained-decision-models
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./runs/pilot/cdm_CarRun_seed0_20261014-154048-622688/wandb/run-20261014_174048-s4mexhwy/logs
+Traceback (most recent call last):
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 88, in <module>
+    run(args.config, args.index)
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 46, in run
+    result = train(model_path=str(paths["model"]), dataset_path=str(paths["dataset"]),
+  File "/gpfs/home2/scur0302/codema/train.py", line 52, in train
+    train_step(trainer, batch, train_cfg["microbatch_size"])
+  File "/gpfs/home2/scur0302/codema/grad_accum.py", line 34, in train_step
+    policy, cp, sp = model(s, a, r, c, t, ~valid, ec)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/osrl/algorithms/cdt.py", line 225, in forward
+    out = block(out, padding_mask=padding_mask)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/models/cdm_3.py", line 27, in forward
+    mixed = self.mixer(self.norm(x))
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1775, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/nn/modules/module.py", line 1786, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/modules/mamba3.py", line 210, in forward
+    y = mamba3_mimo_combined(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py", line 341, in mamba3_mimo
+    return _Mamba3Function.apply(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/function.py", line 581, in apply
+    return super().apply(*args, **kwargs)  # type: ignore[misc]
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py", line 102, in forward
+    Out, Final_SSM_State, Final_K = mamba_mimo_forward(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_fwd.py", line 497, in mamba_mimo_forward
+    kernel = mamba_mimo_fwd(B,
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/jit/__init__.py", line 440, in __call__
+    kernel = self.compile(*args, **kwargs)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/jit/__init__.py", line 375, in compile
+    kernel_result = compile(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/jit/__init__.py", line 98, in compile
+    return cached(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/cache/__init__.py", line 74, in cached
+    return _dispatch_map[execution_backend].cached(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/cache/kernel_cache.py", line 264, in cached
+    kernel = JITKernel(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/jit/kernel.py", line 137, in __init__
+    adapter = self._compile_and_create_adapter(func, out_idx)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/jit/kernel.py", line 241, in _compile_and_create_adapter
+    artifact = tilelang.lower(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/engine/lower.py", line 249, in lower
+    mod = LowerAndLegalize(mod, target)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/engine/phase.py", line 178, in LowerAndLegalize
+    mod = tilelang.transform.LayoutInference()(mod)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/3rdparty/tvm/python/tvm/ir/transform.py", line 167, in __call__
+    return _ffi_transform_api.RunPass(self, mod)
+  File "python/tvm_ffi/cython/function.pxi", line 929, in tvm_ffi.core.Function.__call__
+  File "<unknown>", line 0, in tvm::transform::Pass::operator()(tvm::IRModule) const
+  File "<unknown>", line 0, in tvm::transform::Pass::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+  File "<unknown>", line 0, in tvm::tir::transform::PrimFuncPassNode::operator()(tvm::IRModule, tvm::transform::PassContext const&) const
+  File "<unknown>", line 0, in tvm::tl::LayoutInferencer::Substitute(tvm::tir::PrimFunc, bool)
+  File "<unknown>", line 0, in tvm::tl::BufferUseDefCollector::Run()
+  File "<unknown>", line 0, in tvm::tl::BufferUseDefCollector::RunInferStep(int, tvm::tl::InferLevel, bool, tvm::ffi::Map<tvm::tir::Buffer, tvm::tl::Layout, void>&, tvm::ffi::Map<tvm::tir::Buffer, tvm::tl::Layout, void> const&, std::deque<int, std::allocator<int> >&, std::vector<bool, std::allocator<bool> >&)
+  File "<unknown>", line 0, in tvm::tl::GemmPyNode::InferLayout(tvm::tl::LayoutInferArgs const&, tvm::tl::InferLevel) const
+  File "python/tvm_ffi/cython/function.pxi", line 1083, in tvm_ffi.core.tvm_ffi_callback
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/tileop/gemm/__init__.py", line 23, in gemm_py_infer_layout
+    return gemm_py.infer_layout(target, thread_nums)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/tileop/gemm/__init__.py", line 118, in infer_layout
+    return impl_class(self).infer_layout(target, thread_nums)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/tileop/gemm/gemm_mma.py", line 18, in infer_layout
+    m_warp, n_warp = self.policy.compute_warp_partition(self.M, self.N, thread_nums, target, GemmInst.MMA)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/tilelang/ir.py", line 33, in compute_warp_partition
+    _ffi_api.GemmWarpPolicyComputeWarpPartition(self, int(M), int(N), int(block_size), target, gemm_inst)
+  File "python/tvm_ffi/cython/function.pxi", line 929, in tvm_ffi.core.Function.__call__
+  File "<unknown>", line 0, in tvm::tl::GemmWarpPolicyNode::computeWarpPartition(int, int, int, tvm::Target, tvm::tl::GemmInst) const
+  File "<unknown>", line 0, in tvm::runtime::detail::LogFatal::Entry::Finalize()
+tvm.error.InternalError: Check failed: (m_warp * n_warp == num_warps) is false: m_warp * n_warp must equal num_warps, m_warp: 1, n_warp: 1, num_warps: 4
+srun: error: gcn3: task 0: Exited with exit code 1
+srun: Terminating StepId=28087324.0

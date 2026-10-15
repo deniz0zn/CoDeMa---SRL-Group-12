@@ -1,0 +1,29 @@
+training: configs/train.yaml
+
+training_overrides:
+  experiment: cdt_compare
+  device: cuda
+  steps: 50000
+  log_every: 100
+  keep_step_checkpoints: false
+  evaluation:
+    every: 1000
+    episodes: 10
+    seed: 60000
+    action_mode: sample
+  wandb:
+    mode: online
+
+final_evaluation:
+  episodes: 20
+  seed: 90000
+  mode: sample
+
+models:
+  - name: cdt
+    config: configs/models/cdt.yaml
+
+tasks:
+  - experiments/tasks/car_run.yaml
+
+seeds: [12]

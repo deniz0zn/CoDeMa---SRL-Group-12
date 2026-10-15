@@ -1,0 +1,33 @@
+# Before/after check of the CDM changes: same settings as the old CDM run
+# runs/cdm_seed12_20261013-125937-179616 (CarRun, 50k steps, seed 12, eval every 1000 x 10 episodes, seeds 60000+),
+# only the model differs (current configs/models/cdm.yaml: Mamba-3 mixer + MLP, 439k params).
+# One run: sbatch --array=0 --time=12:00:00 experiments/run.slurm experiments/cdm_compare.yaml
+training: configs/train.yaml
+
+training_overrides:
+  experiment: cdm_compare
+  device: cuda
+  steps: 50000
+  log_every: 100
+  keep_step_checkpoints: false
+  evaluation:
+    every: 1000
+    episodes: 10
+    seed: 60000
+    action_mode: sample
+  wandb:
+    mode: online
+
+final_evaluation:
+  episodes: 20
+  seed: 90000
+  mode: sample
+
+models:
+  - name: cdm
+    config: configs/models/cdm.yaml
+
+tasks:
+  - experiments/tasks/car_run.yaml
+
+seeds: [12]
