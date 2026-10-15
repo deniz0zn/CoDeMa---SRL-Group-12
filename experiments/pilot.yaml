@@ -26,7 +26,8 @@ models:
     config: configs/models/cdt_light.yaml
   - name: cdm
     config: configs/models/cdm.yaml
-
+  - name: cdc
+    config: configs/models/cdc.yaml
 
 tasks:
   - experiments/tasks/car_run.yaml
