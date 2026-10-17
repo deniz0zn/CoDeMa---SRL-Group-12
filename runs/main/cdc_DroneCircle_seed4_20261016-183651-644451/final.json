@@ -1,0 +1,110 @@
+{
+  "selection_budgets": [
+    10.0,
+    20.0,
+    40.0
+  ],
+  "selection_rule": "joint_mean_cost_then_average_reward",
+  "best": {
+    "step": 52500,
+    "elapsed_seconds": 20115.580051518045,
+    "train_seconds": 8067.372534629307,
+    "evaluation": [
+      {
+        "target_cost": 10.0,
+        "target_return": 700.0,
+        "mean_reward": 632.0635313574303,
+        "mean_cost": 9.2,
+        "normalized_reward": 0.5380066544502805,
+        "normalized_cost": 0.9199999999999999,
+        "mean_length": 300.0,
+        "reward_sd": 18.23269474557355,
+        "cost_sd": 5.370702416299422,
+        "violation_rate": 0.4,
+        "max_cost": 19.0,
+        "episodes": 10
+      },
+      {
+        "target_cost": 20.0,
+        "target_return": 750.0,
+        "mean_reward": 647.6600985824255,
+        "mean_cost": 18.9,
+        "normalized_reward": 0.5577843195437936,
+        "normalized_cost": 0.945,
+        "mean_length": 300.0,
+        "reward_sd": 17.899653676728025,
+        "cost_sd": 5.952590472502988,
+        "violation_rate": 0.3,
+        "max_cost": 30.0,
+        "episodes": 10
+      },
+      {
+        "target_cost": 40.0,
+        "target_return": 800.0,
+        "mean_reward": 694.7588351425982,
+        "mean_cost": 37.7,
+        "normalized_reward": 0.6175091951896257,
+        "normalized_cost": 0.9425000000000001,
+        "mean_length": 300.0,
+        "reward_sd": 23.12156645628468,
+        "cost_sd": 1.888562063228706,
+        "violation_rate": 0.0,
+        "max_cost": 40.0,
+        "episodes": 10
+      }
+    ],
+    "joint_feasible": true,
+    "worst_cost_ratio": 0.945
+  },
+  "last": {
+    "step": 100000,
+    "elapsed_seconds": 38192.91972132202,
+    "train_seconds": 15297.573916892288,
+    "evaluation": [
+      {
+        "target_cost": 10.0,
+        "target_return": 700.0,
+        "mean_reward": 650.8106548441643,
+        "mean_cost": 13.1,
+        "normalized_reward": 0.5617794708937063,
+        "normalized_cost": 1.31,
+        "mean_length": 300.0,
+        "reward_sd": 19.715153124010047,
+        "cost_sd": 4.1486276177925525,
+        "violation_rate": 0.8,
+        "max_cost": 21.0,
+        "episodes": 10
+      },
+      {
+        "target_cost": 20.0,
+        "target_return": 750.0,
+        "mean_reward": 657.5717050779052,
+        "mean_cost": 21.6,
+        "normalized_reward": 0.5703530105242122,
+        "normalized_cost": 1.08,
+        "mean_length": 300.0,
+        "reward_sd": 22.535895640074294,
+        "cost_sd": 5.081557066709201,
+        "violation_rate": 0.5,
+        "max_cost": 27.0,
+        "episodes": 10
+      },
+      {
+        "target_cost": 40.0,
+        "target_return": 800.0,
+        "mean_reward": 709.9216598076611,
+        "mean_cost": 41.3,
+        "normalized_reward": 0.6367368408485162,
+        "normalized_cost": 1.0325,
+        "mean_length": 300.0,
+        "reward_sd": 23.713881995695203,
+        "cost_sd": 4.295992965026311,
+        "violation_rate": 0.4,
+        "max_cost": 48.0,
+        "episodes": 10
+      }
+    ],
+    "joint_feasible": false,
+    "worst_cost_ratio": 1.31
+  }
+}
