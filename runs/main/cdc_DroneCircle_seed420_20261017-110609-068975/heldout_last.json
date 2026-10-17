@@ -1,0 +1,915 @@
+{
+  "checkpoint": "/gpfs/home2/scur0302/codema/runs/main/cdc_DroneCircle_seed420_20261017-110609-068975/last.pt",
+  "checkpoint_sha256": "6759d34a006e633847ee59afb5d09ea638373244f77ebfd669bf640517882dd3",
+  "step": 100000,
+  "config": {
+    "model_name": "cdc",
+    "task": "OfflineDroneCircle-v0",
+    "seed": 420,
+    "experiment": "main",
+    "model": {
+      "model": {
+        "conv_window": 2,
+        "cost_transform": true,
+        "embedding_dim": 128,
+        "embedding_dropout": 0.1,
+        "num_layers": 3,
+        "residual_dropout": 0.1,
+        "stochastic": true,
+        "time_emb": true,
+        "use_cost": true,
+        "use_rew": true
+      },
+      "model_script": "models.cdc",
+      "trainer": {
+        "loss_cost_weight": 0.02,
+        "loss_state_weight": 0.0
+      }
+    },
+    "dataset": {
+      "evaluation": {
+        "targets": [
+          [
+            700.0,
+            10.0
+          ],
+          [
+            750.0,
+            20.0
+          ],
+          [
+            800.0,
+            40.0
+          ]
+        ]
+      },
+      "sampling_cost_offset": 70.0,
+      "scales": {
+        "cost_scale": 1.0,
+        "reward_scale": 0.1
+      },
+      "sequence": {
+        "augment_percent": 0.2,
+        "beta": 1.0,
+        "cost_sample": true,
+        "deg": 1,
+        "max_rew_decrease": 100.0,
+        "max_reward": 1000.0,
+        "min_reward": 1.0,
+        "seq_len": 10
+      },
+      "task": "OfflineDroneCircle-v0"
+    },
+    "training": {
+      "batch_size": 2048,
+      "device": "cuda",
+      "evaluation": {
+        "action_mode": "sample",
+        "episodes": 10,
+        "every": 2500,
+        "seed": 60000,
+        "target_costs": [
+          10.0,
+          20.0,
+          40.0
+        ],
+        "target_return": 575.0
+      },
+      "experiment": "main",
+      "keep_step_checkpoints": false,
+      "log_every": 100,
+      "microbatch_size": 128,
+      "num_workers": 0,
+      "optimizer": {
+        "clip_grad": 0.25,
+        "learning_rate": 0.0001,
+        "lr_warmup_steps": 500,
+        "weight_decay": 0.0001
+      },
+      "seed": 420,
+      "steps": 100000,
+      "wandb": {
+        "entity": null,
+        "mode": "online",
+        "project": "constrained-decision-models"
+      }
+    }
+  },
+  "evaluation": {
+    "action_mode": "sample",
+    "episodes": 20,
+    "every": 2500,
+    "seed": 90000,
+    "target_costs": [
+      10.0,
+      20.0,
+      40.0
+    ],
+    "target_return": 575.0,
+    "targets": [
+      [
+        700.0,
+        10.0
+      ],
+      [
+        750.0,
+        20.0
+      ],
+      [
+        800.0,
+        40.0
+      ]
+    ]
+  },
+  "summary": [
+    {
+      "target_cost": 10.0,
+      "target_return": 700.0,
+      "mean_reward": 633.0430874983176,
+      "mean_cost": 13.3,
+      "normalized_reward": 0.5392488081252069,
+      "normalized_cost": 1.33,
+      "mean_length": 300.0,
+      "reward_sd": 29.6540470945454,
+      "cost_sd": 5.704107476657778,
+      "violation_rate": 0.75,
+      "max_cost": 23.0,
+      "episodes": 20,
+      "reward_mean_ci95": [
+        619.3017405802749,
+        644.7358989226329
+      ],
+      "cost_mean_ci95": [
+        10.8,
+        15.75
+      ]
+    },
+    {
+      "target_cost": 20.0,
+      "target_return": 750.0,
+      "mean_reward": 656.4508231906304,
+      "mean_cost": 21.5,
+      "normalized_reward": 0.5689316447674976,
+      "normalized_cost": 1.075,
+      "mean_length": 300.0,
+      "reward_sd": 28.03793142725608,
+      "cost_sd": 5.771983149116447,
+      "violation_rate": 0.55,
+      "max_cost": 35.0,
+      "episodes": 20,
+      "reward_mean_ci95": [
+        644.5863591141965,
+        668.3759210796941
+      ],
+      "cost_mean_ci95": [
+        19.1,
+        24.0
+      ]
+    },
+    {
+      "target_cost": 40.0,
+      "target_return": 800.0,
+      "mean_reward": 663.8584035502452,
+      "mean_cost": 36.9,
+      "normalized_reward": 0.5783250350816787,
+      "normalized_cost": 0.9225,
+      "mean_length": 285.65,
+      "reward_sd": 160.27791662493402,
+      "cost_sd": 10.098983794630552,
+      "violation_rate": 0.4,
+      "max_cost": 47.0,
+      "episodes": 20,
+      "reward_mean_ci95": [
+        585.1009340183202,
+        710.7738805492558
+      ],
+      "cost_mean_ci95": [
+        31.8,
+        40.5
+      ]
+    }
+  ],
+  "episodes": [
+    {
+      "seed": 90000,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 556.2217900379787,
+      "cost": 18.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.29583333333333334
+    },
+    {
+      "seed": 90001,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 642.8644462279035,
+      "cost": 15.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.32416666666666666
+    },
+    {
+      "seed": 90002,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 655.7922128872816,
+      "cost": 13.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.305
+    },
+    {
+      "seed": 90003,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 653.0167900433223,
+      "cost": 12.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.33166666666666667
+    },
+    {
+      "seed": 90004,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 629.2631669567764,
+      "cost": 15.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.29333333333333333
+    },
+    {
+      "seed": 90005,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 622.530146933109,
+      "cost": 4.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2991666666666667
+    },
+    {
+      "seed": 90006,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 643.064099086599,
+      "cost": 8.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2875
+    },
+    {
+      "seed": 90007,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 647.1294129345233,
+      "cost": 11.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.32416666666666666
+    },
+    {
+      "seed": 90008,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 620.4802898362664,
+      "cost": 10.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.325
+    },
+    {
+      "seed": 90009,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 560.9978141688374,
+      "cost": 1.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31416666666666665
+    },
+    {
+      "seed": 90010,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 655.28340889574,
+      "cost": 22.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31
+    },
+    {
+      "seed": 90011,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 622.9820172928858,
+      "cost": 12.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2975
+    },
+    {
+      "seed": 90012,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 619.2673433018866,
+      "cost": 13.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3375
+    },
+    {
+      "seed": 90013,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 661.4861322838362,
+      "cost": 19.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2991666666666667
+    },
+    {
+      "seed": 90014,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 672.5016320824558,
+      "cost": 15.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3225
+    },
+    {
+      "seed": 90015,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 634.955097680813,
+      "cost": 14.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31083333333333335
+    },
+    {
+      "seed": 90016,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 660.4479036805626,
+      "cost": 23.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3025
+    },
+    {
+      "seed": 90017,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 632.5097606605427,
+      "cost": 21.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30333333333333334
+    },
+    {
+      "seed": 90018,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 642.3464822867032,
+      "cost": 13.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3283333333333333
+    },
+    {
+      "seed": 90019,
+      "budget": 10.0,
+      "target_return": 700.0,
+      "action_mode": "sample",
+      "reward": 627.7218026883265,
+      "cost": 7.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30833333333333335
+    },
+    {
+      "seed": 90000,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 655.353065886488,
+      "cost": 23.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31666666666666665
+    },
+    {
+      "seed": 90001,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 670.3278282627568,
+      "cost": 25.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3425
+    },
+    {
+      "seed": 90002,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 634.3355995907904,
+      "cost": 23.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30833333333333335
+    },
+    {
+      "seed": 90003,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 664.1740712098093,
+      "cost": 14.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.33
+    },
+    {
+      "seed": 90004,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 648.3240630558184,
+      "cost": 17.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2941666666666667
+    },
+    {
+      "seed": 90005,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 644.1537167223308,
+      "cost": 17.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30583333333333335
+    },
+    {
+      "seed": 90006,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 662.7041289697883,
+      "cost": 16.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.27666666666666667
+    },
+    {
+      "seed": 90007,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 649.825164389796,
+      "cost": 13.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.32166666666666666
+    },
+    {
+      "seed": 90008,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 641.166971746561,
+      "cost": 18.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30416666666666664
+    },
+    {
+      "seed": 90009,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 687.4477618609212,
+      "cost": 30.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30916666666666665
+    },
+    {
+      "seed": 90010,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 653.2255843090068,
+      "cost": 20.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31583333333333335
+    },
+    {
+      "seed": 90011,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 596.3983668318136,
+      "cost": 24.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.26416666666666666
+    },
+    {
+      "seed": 90012,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 612.9479928776719,
+      "cost": 23.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31083333333333335
+    },
+    {
+      "seed": 90013,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 675.6167376797891,
+      "cost": 23.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2758333333333333
+    },
+    {
+      "seed": 90014,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 707.4243002486999,
+      "cost": 24.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3258333333333333
+    },
+    {
+      "seed": 90015,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 638.0160796738251,
+      "cost": 18.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31
+    },
+    {
+      "seed": 90016,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 718.678807800736,
+      "cost": 35.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3175
+    },
+    {
+      "seed": 90017,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 658.0010190977855,
+      "cost": 29.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30083333333333334
+    },
+    {
+      "seed": 90018,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 657.4229972447566,
+      "cost": 24.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3258333333333333
+    },
+    {
+      "seed": 90019,
+      "budget": 20.0,
+      "target_return": 750.0,
+      "action_mode": "sample",
+      "reward": 653.4722063534628,
+      "cost": 14.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3233333333333333
+    },
+    {
+      "seed": 90000,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 702.2020623901901,
+      "cost": 41.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.33
+    },
+    {
+      "seed": 90001,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 689.8385111603151,
+      "cost": 37.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3125
+    },
+    {
+      "seed": 90002,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 737.2628963686285,
+      "cost": 42.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30583333333333335
+    },
+    {
+      "seed": 90003,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 714.4781557956728,
+      "cost": 40.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.325
+    },
+    {
+      "seed": 90004,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 705.1687215214668,
+      "cost": 45.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.315
+    },
+    {
+      "seed": 90005,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 677.0881026382575,
+      "cost": 30.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3475
+    },
+    {
+      "seed": 90006,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 737.2241516226791,
+      "cost": 45.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2791666666666667
+    },
+    {
+      "seed": 90007,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 632.5977787484228,
+      "cost": 39.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.33
+    },
+    {
+      "seed": 90008,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 694.3479413834718,
+      "cost": 44.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.30333333333333334
+    },
+    {
+      "seed": 90009,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 735.4922244412619,
+      "cost": 39.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.32083333333333336
+    },
+    {
+      "seed": 90010,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 711.4306758140796,
+      "cost": 42.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.29083333333333333
+    },
+    {
+      "seed": 90011,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 647.6709840950102,
+      "cost": 31.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.2808333333333333
+    },
+    {
+      "seed": 90012,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 0.3721812175098532,
+      "cost": 0.0,
+      "length": 13,
+      "terminated": true,
+      "truncated": false,
+      "action_saturation": 0.25
+    },
+    {
+      "seed": 90013,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 688.3191246585479,
+      "cost": 32.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.28
+    },
+    {
+      "seed": 90014,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 653.5469805157188,
+      "cost": 34.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3325
+    },
+    {
+      "seed": 90015,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 688.6144236071735,
+      "cost": 39.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31333333333333335
+    },
+    {
+      "seed": 90016,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 771.0187139844442,
+      "cost": 47.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.31666666666666665
+    },
+    {
+      "seed": 90017,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 644.6587874403432,
+      "cost": 30.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.305
+    },
+    {
+      "seed": 90018,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 702.8124255595828,
+      "cost": 38.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3125
+    },
+    {
+      "seed": 90019,
+      "budget": 40.0,
+      "target_return": 800.0,
+      "action_mode": "sample",
+      "reward": 743.0232280421282,
+      "cost": 43.0,
+      "length": 300,
+      "terminated": false,
+      "truncated": true,
+      "action_saturation": 0.3175
+    }
+  ],
+  "uncertainty": "Pointwise bootstrap intervals across evaluation seeds; not training-seed uncertainty or a safety certificate."
+}
