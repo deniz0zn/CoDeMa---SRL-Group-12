@@ -165,6 +165,12 @@ exit
 
 Output: `experiments/results/benchmark.csv`.
 
+To benchmark all five tasks in one batch job (output: `experiments/results/benchmark_all_tasks.csv`):
+
+```bash
+sbatch experiments/benchmark.slurm
+```
+
 ### Analysis
 
 After the main runs have finished (login node, no GPU needed):

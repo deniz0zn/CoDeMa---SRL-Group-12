@@ -102,8 +102,8 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--models", nargs="+", default=["configs/models/cdt.yaml", "configs/models/cdt_light.yaml",
-                                                        "configs/models/cdm.yaml"])
-    parser.add_argument("--task", default="experiments/tasks/car_run.yaml")
+                                                        "configs/models/cdm.yaml", "configs/models/cdc.yaml"])
+    parser.add_argument("--tasks", nargs="+", default=["experiments/tasks/car_run.yaml"])
     parser.add_argument("--seq-lens", type=int, nargs="+", default=[10, 20, 50, 100])
     parser.add_argument("--batch-size", type=int, default=training["batch_size"])
     parser.add_argument("--microbatch-size", type=int, default=training["microbatch_size"])
@@ -115,14 +115,15 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     torch.manual_seed(0)
-    task = read_yaml(args.task)
     rows = []
 
-    for seq_len in args.seq_lens:
-        for model_path in args.models:
-            row = benchmark(model_path, task, training, seq_len, args)
-            rows.append(row)
-            print(row)
+    for task_path in args.tasks:
+        task = read_yaml(task_path)
+        for seq_len in args.seq_lens:
+            for model_path in args.models:
+                row = benchmark(model_path, task, training, seq_len, args)
+                rows.append(row)
+                print(row)
 
     output = ROOT / args.output
     output.parent.mkdir(parents=True, exist_ok=True)
