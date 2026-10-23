@@ -1,27 +1,39 @@
 import torch
 from torch import nn
+from torch.nn import functional as F
 import mamba_ssm  # keep this here or my house burns down
 from mamba_ssm import Mamba3
 from osrl.algorithms.cdt import CDT, CDTTrainer
 
 
 class MambaBlock(nn.Module):
-    def __init__(self, dim, dropout, **mamba_config):
+    def __init__(self, dim, dropout, use_mlp=True, mlp_ratio=4, **mamba_config):
         super().__init__()
 
         self.norm = nn.LayerNorm(dim)
         self.mixer = Mamba3(d_model=dim, **mamba_config)
         self.dropout = nn.Dropout(dropout)
 
+        self.mlp = None
+        if use_mlp:
+            self.norm2 = nn.LayerNorm(dim)
+            self.mlp = nn.Sequential(nn.Linear(dim,mlp_ratio * dim), nn.GELU(), nn.Linear(mlp_ratio * dim, dim), nn.Dropout(dropout))
+            self.mlp.apply(CDT._init_weights)
 
     def forward(self, x, padding_mask=None):
         if padding_mask is not None:
             x = x.masked_fill(padding_mask.unsqueeze(-1), 0.0)
-
+        
+        length = x.shape[1]
+        pad = -length % self.mixer.chunk_size
+                
         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-            mixed = self.mixer(self.norm(x))
+            mixed = self.mixer(F.pad(self.norm(x), (0, 0, 0, pad)))[:, :length]
 
         x = x + self.dropout(mixed.to(x.dtype))
+
+        if self.mlp is not None:
+            x = x + self.mlp(self.norm2(x))
 
         if padding_mask is not None:
             x = x.masked_fill(padding_mask.unsqueeze(-1), 0.0)
@@ -31,12 +43,15 @@ class MambaBlock(nn.Module):
 
 class CDM(CDT):
     def __init__(self, embedding_dim=128, num_layers=3, d_state=128, expand=2, headdim = 64,
-                 is_mimo = True, mimo_rank = 4, chunk_size = 8, residual_dropout=0.1, **kwargs):
+                 is_mimo = True, mimo_rank = 4, chunk_size = 8, use_mlp = True, mlp_ratio=4,
+                 residual_dropout = 0.1, **kwargs):
 
         super().__init__(embedding_dim=embedding_dim, num_layers=0, residual_dropout=residual_dropout, **kwargs)
 
-        self.blocks = nn.ModuleList([MambaBlock(dim=embedding_dim, dropout=residual_dropout, d_state=d_state,
-                                                expand=expand, headdim=headdim, is_mimo=is_mimo, mimo_rank=mimo_rank,
+        self.blocks = nn.ModuleList([MambaBlock(dim=embedding_dim, dropout=residual_dropout,
+                                                use_mlp = use_mlp, mlp_ratio = mlp_ratio,
+                                                d_state=d_state,expand=expand, headdim=headdim,
+                                                is_mimo=is_mimo, mimo_rank=mimo_rank,
                                                 chunk_size=chunk_size, is_outproj_norm=False,) for _ in range(num_layers)])
 
 

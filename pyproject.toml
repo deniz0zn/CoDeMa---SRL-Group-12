@@ -57,3 +57,10 @@ oapackage = [
 name = "pytorch-cu128"
 url = "https://download.pytorch.org/whl/cu128"
 explicit = true
+
+[dependency-groups]
+analysis = [
+    "jupyter>=1.1.1",
+    "pandas>=2.3.3",
+    "seaborn>=0.13.2",
+]

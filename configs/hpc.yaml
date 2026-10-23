@@ -44,20 +44,20 @@ runs:
       seed: 1
 
   # Index 3
-  - name: cdt_small
-    model: configs/models/cdt_small.yaml
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
     training_overrides:
       seed: 12
 
   # Index 4
-  - name: cdt_small
-    model: configs/models/cdt_small.yaml
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
     training_overrides:
       seed: 0
 
   # Index 5
-  - name: cdt_small
-    model: configs/models/cdt_small.yaml
+  - name: cdt_light
+    model: configs/models/cdt_light.yaml
     training_overrides:
       seed: 1
 

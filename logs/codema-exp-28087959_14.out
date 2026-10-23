@@ -1,0 +1,65 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+Cell 14/14 | model: cdm | task: OfflineDroneCircle-v0 | seed: 0
+Steps: 1000
+GPU: NVIDIA A100-SXM4-40GB MIG 3g.20gb
+wandb: Currently logged in as: d-ozen (dozen) to https://api.wandb.ai. Use `wandb login --relogin` to force relogin
+wandb: setting up run m565o3rf
+wandb: Tracking run with wandb version 0.22.3
+wandb: Run data is saved locally in /gpfs/home2/scur0302/codema/runs/pilot/cdm_DroneCircle_seed0_20261014-160348-542474/wandb/run-20261014_180348-m565o3rf
+wandb: Run `wandb offline` to turn off syncing.
+wandb: Syncing run cdm_DroneCircle_seed0_20261014-160348-542474
+wandb: ⭐️ View project at https://wandb.ai/dozen/constrained-decision-models
+wandb: 🚀 View run at https://wandb.ai/dozen/constrained-decision-models/runs/m565o3rf
+Loading dataset from /home/scur0302/.dsrl/datasets/SafetyDroneCircle-v0-100-1923.hdf5
+load datafile:   0%|          | 0/7 [00:00<?, ?it/s]load datafile:  43%|████▎     | 3/7 [00:00<00:00,  6.99it/s]load datafile:  57%|█████▋    | 4/7 [00:00<00:00,  4.80it/s]load datafile: 100%|██████████| 7/7 [00:00<00:00,  8.79it/s]
+Processing trajectories:   0%|          | 0/576243 [00:00<?, ?it/s]Processing trajectories:   2%|▏         | 13116/576243 [00:00<00:04, 129632.71it/s]Processing trajectories:   5%|▍         | 26316/576243 [00:00<00:04, 130713.37it/s]Processing trajectories:   7%|▋         | 39516/576243 [00:00<00:04, 130719.99it/s]Processing trajectories:   9%|▉         | 52709/576243 [00:00<00:04, 130804.44it/s]Processing trajectories:  11%|█▏        | 65909/576243 [00:00<00:03, 130824.96it/s]Processing trajectories:  14%|█▎        | 79109/576243 [00:00<00:03, 130507.29it/s]Processing trajectories:  16%|█▌        | 92201/576243 [00:00<00:03, 130396.70it/s]Processing trajectories:  18%|█▊        | 105241/576243 [00:00<00:03, 130121.32it/s]Processing trajectories:  21%|██        | 118301/576243 [00:00<00:03, 129881.31it/s]Processing trajectories:  23%|██▎       | 131501/576243 [00:01<00:03, 129834.27it/s]Processing trajectories:  25%|██▌       | 144719/576243 [00:01<00:03, 130012.24it/s]Processing trajectories:  27%|██▋       | 157919/576243 [00:01<00:03, 130083.58it/s]Processing trajectories:  30%|██▉       | 171119/576243 [00:01<00:03, 130008.75it/s]Processing trajectories:  32%|███▏      | 184231/576243 [00:01<00:03, 130339.94it/s]Processing trajectories:  34%|███▍      | 197266/576243 [00:01<00:02, 129854.10it/s]Processing trajectories:  37%|███▋      | 210407/576243 [00:01<00:02, 129905.74it/s]Processing trajectories:  39%|███▉      | 223607/576243 [00:01<00:02, 130270.39it/s]Processing trajectories:  41%|████      | 236807/576243 [00:01<00:02, 130512.82it/s]Processing trajectories:  43%|████▎     | 250007/576243 [00:01<00:02, 130299.39it/s]Processing trajectories:  46%|████▌     | 263207/576243 [00:02<00:02, 130130.59it/s]Processing trajectories:  48%|████▊     | 276407/576243 [00:02<00:02, 130058.11it/s]Processing trajectories:  50%|█████     | 289607/576243 [00:02<00:02, 129997.66it/s]Processing trajectories:  53%|█████▎    | 302807/576243 [00:02<00:02, 130019.92it/s]Processing trajectories:  55%|█████▍    | 316007/576243 [00:02<00:02, 129972.00it/s]Processing trajectories:  57%|█████▋    | 329207/576243 [00:02<00:01, 130321.71it/s]Processing trajectories:  59%|█████▉    | 342325/576243 [00:02<00:01, 130366.80it/s]Processing trajectories:  62%|██████▏   | 355443/576243 [00:02<00:01, 130416.50it/s]Processing trajectories:  64%|██████▍   | 368643/576243 [00:02<00:01, 130270.81it/s]Processing trajectories:  66%|██████▋   | 381798/576243 [00:02<00:01, 130650.77it/s]Processing trajectories:  69%|██████▊   | 394864/576243 [00:03<00:01, 129571.87it/s]Processing trajectories:  71%|███████   | 407823/576243 [00:03<00:01, 129551.50it/s]Processing trajectories:  73%|███████▎  | 420780/576243 [00:03<00:01, 129516.75it/s]Processing trajectories:  75%|███████▌  | 433743/576243 [00:03<00:01, 128918.81it/s]Processing trajectories:  78%|███████▊  | 446943/576243 [00:03<00:01, 129119.97it/s]Processing trajectories:  80%|███████▉  | 459888/576243 [00:03<00:00, 129216.96it/s]Processing trajectories:  82%|████████▏ | 472816/576243 [00:03<00:00, 129234.69it/s]Processing trajectories:  84%|████████▍ | 485943/576243 [00:03<00:00, 129215.64it/s]Processing trajectories:  87%|████████▋ | 498894/576243 [00:03<00:00, 129302.50it/s]Processing trajectories:  89%|████████▉ | 512043/576243 [00:03<00:00, 129369.52it/s]Processing trajectories:  91%|█████████ | 525243/576243 [00:04<00:00, 129466.35it/s]Processing trajectories:  93%|█████████▎| 538429/576243 [00:04<00:00, 130177.92it/s]Processing trajectories:  96%|█████████▌| 551448/576243 [00:04<00:00, 129364.77it/s]Processing trajectories:  98%|█████████▊| 564543/576243 [00:04<00:00, 129218.76it/s]Processing trajectories: 100%|██████████| 576243/576243 [00:04<00:00, 129907.82it/s]
+after filter 959
+Pareto: 34 optimal values, 34 objects
+original data: 1923, augment data: 191, total: 2114
+2026-10-14 18:04:06  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_fwd_kernel` with `out_idx=[]`
+2026-10-14 18:04:22  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_fwd_kernel`
+2026-10-14 18:04:25  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_fwd_kernel` with `out_idx=[]`
+2026-10-14 18:04:50  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_fwd_kernel`
+2026-10-14 18:04:53  [TileLang:tilelang.jit.kernel:INFO]: TileLang begins to compile kernel `mamba_mimo_bwd_bwd_kernel` with `out_idx=[]`
+2026-10-14 18:05:50  [TileLang:tilelang.jit.kernel:INFO]: TileLang completes to compile kernel `mamba_mimo_bwd_bwd_kernel`
+Training:   0%|          | 0/1000 [00:00<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:04<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:20<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:23<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:48<?, ?it/s]                                                  Training:   0%|          | 0/1000 [00:51<?, ?it/s]                                                  Training:   0%|          | 0/1000 [01:48<?, ?it/s]Training:   0%|          | 0/1000 [01:52<?, ?it/s]
+wandb: updating run metadata
+wandb: uploading config.yaml
+wandb: uploading summary, console lines 6-6
+wandb: 
+wandb: Run summary:
+wandb: parameters 455028
+wandb: 
+wandb: 🚀 View run cdm_DroneCircle_seed0_20261014-160348-542474 at: https://wandb.ai/dozen/constrained-decision-models/runs/m565o3rf
+wandb: ⭐️ View project at: https://wandb.ai/dozen/constrained-decision-models
+wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
+wandb: Find logs at: ./runs/pilot/cdm_DroneCircle_seed0_20261014-160348-542474/wandb/run-20261014_180348-m565o3rf/logs
+Traceback (most recent call last):
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 88, in <module>
+    run(args.config, args.index)
+  File "/gpfs/home2/scur0302/codema/experiments/run.py", line 46, in run
+    result = train(model_path=str(paths["model"]), dataset_path=str(paths["dataset"]),
+  File "/gpfs/home2/scur0302/codema/train.py", line 52, in train
+    train_step(trainer, batch, train_cfg["microbatch_size"])
+  File "/gpfs/home2/scur0302/codema/grad_accum.py", line 53, in train_step
+    loss.backward()
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/_tensor.py", line 625, in backward
+    torch.autograd.backward(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/__init__.py", line 354, in backward
+    _engine_run_backward(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/graph.py", line 841, in _engine_run_backward
+    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/torch/autograd/function.py", line 315, in apply
+    return user_fn(self, *args)
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo.py", line 184, in backward
+    dD, dZ, dOut_Norm_Weight) = mamba_mimo_bwd_combined(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/tilelang/mamba3/mamba3_mimo_bwd.py", line 1563, in mamba_mimo_bwd_combined
+    ddA += bwd_dadt_fused_triton(
+  File "/gpfs/home2/scur0302/codema/.venv/lib/python3.10/site-packages/mamba_ssm/ops/triton/mamba3/mamba3_mimo_utils.py", line 544, in bwd_dadt_fused_triton
+    assert S % chunk_size == 0, f"Sequence length {S} must be divisible by chunk_size {chunk_size}"
+AssertionError: Sequence length 40 must be divisible by chunk_size 16
+srun: error: gcn3: task 0: Exited with exit code 1
+srun: Terminating StepId=28087959.0

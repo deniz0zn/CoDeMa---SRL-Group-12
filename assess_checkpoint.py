@@ -12,23 +12,16 @@ from dsrl.offline_env import wrap_env
 from grad_accum import evaluate
 
 
-def main():
-    parser = argparse.ArgumentParser()
-    parser.add_argument("checkpoint", type=Path)
-    parser.add_argument("--device", default="cpu")
-    parser.add_argument("--episodes", type=int, default=10)
-    parser.add_argument("--seed", type=int, default=60000)
-    parser.add_argument("--mode", choices=["mean", "sample"], default="sample")
-    parser.add_argument("--output", type=Path, required=True)
-    args = parser.parse_args()
+def assess(checkpoint_path, output, device="cpu", episodes=10, seed=60000, mode="sample"):
+    checkpoint_path, output = Path(checkpoint_path), Path(output)
 
-    if args.episodes < 1:
-        parser.error("--episodes must be positive")
-    if args.output.exists():
-        parser.error("Output already exists; choose another filename")
+    if episodes < 1:
+        raise ValueError("Episodes must be positive")
+    if output.exists():
+        raise ValueError("Output file already exists. Choose another filename")
 
     torch.set_num_threads(2)
-    checkpoint = torch.load(args.checkpoint, map_location="cpu", weights_only=False)
+    checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=False)
 
     saved = checkpoint["config"]
     if isinstance(saved.get("model"), dict):
@@ -95,7 +88,7 @@ def main():
         }
 
     m, d, t = config["model"], config["dataset"], config["training"]
-    settings = {**t["evaluation"], "episodes": args.episodes, "seed": args.seed, "action_mode": args.mode}
+    settings = {**t["evaluation"], **d.get("evaluation", {}), "episodes": episodes, "seed": seed, "action_mode": mode}
     env = wrap_env(gym.make(d["task"]), reward_scale=d["scales"]["reward_scale"])
 
     try:
@@ -104,7 +97,7 @@ def main():
             env=env,
             model_config={**m["model"], "seq_len": d["sequence"]["seq_len"]},
             trainer_config={**t["optimizer"], **m["trainer"], **d["scales"]},
-            device=args.device
+            device=device
         )
 
         model.load_state_dict(checkpoint["model"], strict=True)
@@ -112,32 +105,48 @@ def main():
             with torch.no_grad():
                 model.log_temperature.copy_(checkpoint["log_temperature"])
 
-        summary, episodes = evaluate(trainer, settings, d["scales"], d["task"])
+        summary, rollouts = evaluate(trainer, settings, d["scales"], d["task"])
 
 
-        if args.episodes > 1:
+        if episodes > 1:
             rng = np.random.default_rng(42)
 
             for row in summary:
-                group = [e for e in episodes if e["budget"] == row["target_cost"]]
+                group = [e for e in rollouts if e["budget"] == row["target_cost"]]
                 indices = rng.integers(0, len(group), size=(5000, len(group)))
 
                 for field in ["reward", "cost"]:
                     values = np.array([e[field] for e in group])
                     row[field + "_mean_ci95"] = np.quantile(values[indices].mean(axis=1), [0.025, 0.975]).tolist()
 
-        result = dict(checkpoint=str(args.checkpoint.resolve()),
-                      checkpoint_sha256=hashlib.sha256(args.checkpoint.read_bytes()).hexdigest(),
-                      step=checkpoint["step"], config=config, evaluation=settings, summary=summary, episodes=episodes,
+        result = dict(checkpoint=str(checkpoint_path.resolve()),
+                      checkpoint_sha256=hashlib.sha256(checkpoint_path.read_bytes()).hexdigest(),
+                      step=checkpoint["step"], config=config, evaluation=settings, summary=summary, episodes=rollouts,
                       uncertainty=("Pointwise bootstrap intervals across evaluation seeds; "
-                                   "not training-seed uncertainty or a safety certificate.")
-                      )
+                                   "not training-seed uncertainty or a safety certificate."))
 
-        with args.output.open("x") as f:
+        with output.open("x") as f:
             json.dump(result, f, indent=2, allow_nan=False)
         print(json.dumps(summary, indent=2))
     finally:
         env.close()
+    return result
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("checkpoint", type=Path)
+    parser.add_argument("--device", default="cpu")
+    parser.add_argument("--episodes", type=int, default=10)
+    parser.add_argument("--seed", type=int, default=60000)
+    parser.add_argument("--mode", choices=["mean", "sample"], default="sample")
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+
+    try:
+        assess(args.checkpoint, args.output, args.device, args.episodes, args.seed, args.mode)
+    except (ValueError, FileExistsError) as error:
+        parser.error(str(error))
 
 
 if __name__ == "__main__":
