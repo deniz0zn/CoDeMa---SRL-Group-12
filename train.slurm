@@ -7,7 +7,7 @@
 #SBATCH --gpus=1
 #SBATCH --time=20:00:00
 #SBATCH --output=logs/%x-%A_%a.out
-#SBATCH --mail-user=d.ozen@student.tue.nl
+#SBATCH --mail-user=<your-email>
 #SBATCH --mail-type=BEGIN,END
 
 
